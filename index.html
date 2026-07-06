@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MP Solutions IA — Chatbots pour ton commerce</title>
+<meta name="description" content="MP Solutions IA installe un chatbot sur votre site. Il répond à vos clients 24h/24, pendant que vous vous concentrez sur votre métier. Basé en Ariège." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F8F4;
+    --surface:#FFFFFF;
+    --ink:#16241D;
+    --ink-soft:#4A5B52;
+    --forest:#1B4332;
+    --forest-2:#2D6A4F;
+    --leaf:#2E9E5B;
+    --leaf-soft:#E4F3EA;
+    --sun:#F4B942;
+    --line:#E2E8DE;
+    --shadow:0 18px 50px -20px rgba(22,36,29,.35);
+    --font-display:"Bricolage Grotesque",system-ui,sans-serif;
+    --font-body:"Figtree",system-ui,sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--font-body);
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  a{color:inherit}
+
+  /* ---------- NAV ---------- */
+  header.nav{position:sticky;top:0;z-index:40;background:rgba(246,248,244,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:800;font-size:1.15rem;letter-spacing:-.02em}
+  .brand .dot{width:32px;height:32px;border-radius:10px;background:var(--forest);display:grid;place-items:center;color:#fff;font-size:1rem}
+  .nav-cta{font-weight:600;font-size:.95rem;padding:10px 18px;border-radius:999px;background:var(--forest);color:#fff;text-decoration:none;transition:transform .15s ease,background .15s ease}
+  .nav-cta:hover{background:var(--forest-2);transform:translateY(-1px)}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:72px 0 40px}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.82rem;letter-spacing:.02em;color:var(--forest-2);background:var(--leaf-soft);padding:7px 14px;border-radius:999px;margin-bottom:22px}
+  .eyebrow .pin{width:6px;height:6px;border-radius:50%;background:var(--leaf)}
+  h1{font-family:var(--font-display);font-weight:800;font-size:clamp(2.3rem,5vw,3.5rem);line-height:1.04;letter-spacing:-.03em;margin-bottom:20px}
+  h1 .hl{color:var(--forest-2)}
+  .lead{font-size:1.18rem;color:var(--ink-soft);max-width:30ch;margin-bottom:32px}
+  .cta-row{display:flex;flex-wrap:wrap;gap:14px}
+  .btn{font-family:var(--font-body);font-weight:600;font-size:1rem;padding:14px 26px;border-radius:999px;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:9px;transition:transform .15s ease,box-shadow .15s ease,background .15s ease}
+  .btn-primary{background:var(--leaf);color:#fff;box-shadow:0 10px 26px -10px rgba(46,158,91,.7)}
+  .btn-primary:hover{transform:translateY(-2px);background:#26894f}
+  .btn-ghost{background:transparent;color:var(--forest);border:1.5px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--forest-2);transform:translateY(-2px)}
+
+  /* ---------- HERO CHAT DEMO ---------- */
+  .chat-demo{background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
+  .chat-demo-top{display:flex;align-items:center;gap:10px;padding:16px 20px;border-bottom:1px solid var(--line);background:var(--forest)}
+  .chat-demo-top .av{width:34px;height:34px;border-radius:50%;background:var(--leaf);display:grid;place-items:center;font-size:1.05rem}
+  .chat-demo-top .who{color:#fff;font-weight:600;font-size:.95rem;line-height:1.2}
+  .chat-demo-top .who small{display:block;font-weight:400;font-size:.75rem;color:#B7D3C3}
+  .chat-body{padding:22px 20px;display:flex;flex-direction:column;gap:14px;min-height:270px;background:linear-gradient(180deg,#fff, #FBFDFA)}
+  .bubble{max-width:80%;padding:12px 16px;border-radius:18px;font-size:.96rem;opacity:0;transform:translateY(8px);animation:pop .5s ease forwards}
+  .bubble.client{align-self:flex-end;background:var(--forest);color:#fff;border-bottom-right-radius:6px}
+  .bubble.bot{align-self:flex-start;background:var(--leaf-soft);color:var(--ink);border-bottom-left-radius:6px}
+  .bubble.b1{animation-delay:.3s}
+  .bubble.b2{animation-delay:1.1s}
+  .bubble.b3{animation-delay:2.1s}
+  .bubble.b4{animation-delay:3.1s}
+  @keyframes pop{to{opacity:1;transform:translateY(0)}}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:76px 0}
+  .sec-eyebrow{font-weight:600;color:var(--leaf);font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
+  h2{font-family:var(--font-display);font-weight:700;font-size:clamp(1.8rem,3.5vw,2.5rem);letter-spacing:-.02em;line-height:1.1;margin-bottom:16px}
+  .sec-intro{color:var(--ink-soft);font-size:1.1rem;max-width:46ch}
+
+  /* benefits */
+  .benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:44px}
+  .bcard{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px}
+  .bcard .ic{width:48px;height:48px;border-radius:14px;background:var(--leaf-soft);display:grid;place-items:center;font-size:1.4rem;margin-bottom:18px}
+  .bcard h3{font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:8px;letter-spacing:-.01em}
+  .bcard p{color:var(--ink-soft);font-size:.98rem}
+
+  /* offer */
+  .offer{background:var(--forest);color:#fff;border-radius:32px;padding:56px;position:relative;overflow:hidden}
+  .offer::after{content:"";position:absolute;right:-80px;top:-80px;width:280px;height:280px;border-radius:50%;background:rgba(46,158,91,.25)}
+  .offer-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;position:relative;z-index:1}
+  .offer h2{color:#fff}
+  .offer .price-lead{color:#C5DDD0;font-size:1.1rem;margin-bottom:8px}
+  .price-block{display:flex;flex-direction:column;gap:22px;margin-top:8px}
+  .price-item{display:flex;gap:16px;align-items:flex-start}
+  .price-num{font-family:var(--font-display);font-weight:800;font-size:2rem;color:#fff;line-height:1;white-space:nowrap}
+  .price-item .txt strong{display:block;font-size:1.05rem;margin-bottom:2px}
+  .price-item .txt span{color:#C5DDD0;font-size:.95rem}
+  .incl-block{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:20px;padding:28px}
+  .incl-title{font-family:var(--font-display);font-weight:700;font-size:1.05rem;color:var(--sun);margin-bottom:16px}
+  .incl-list{list-style:none;display:flex;flex-direction:column;gap:14px}
+  .incl-list li{position:relative;padding-left:30px;color:#EAF2ED;font-size:1rem;line-height:1.5}
+  .incl-list li::before{content:"";position:absolute;left:0;top:7px;width:18px;height:18px;border-radius:50%;background:var(--leaf);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center}
+
+  /* for who */
+  .who-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:44px}
+  .who-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px 20px;text-align:center}
+  .who-card .em{font-size:1.9rem;display:block;margin-bottom:10px}
+  .who-card strong{font-family:var(--font-display);font-weight:700;font-size:1.02rem}
+  .who-card small{display:block;color:var(--ink-soft);margin-top:4px;font-size:.88rem}
+
+  /* contact */
+  .contact{text-align:center}
+  .contact h2{margin-bottom:14px}
+  .contact p{color:var(--ink-soft);font-size:1.12rem;max-width:44ch;margin:0 auto 30px}
+  .mail{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;font-size:1.25rem;color:var(--forest);text-decoration:none;border-bottom:2px solid var(--leaf);padding-bottom:3px}
+  .contact .hint{margin-top:26px;font-size:.95rem;color:var(--ink-soft)}
+
+  /* footer */
+  footer{border-top:1px solid var(--line);padding:34px 0;text-align:center;color:var(--ink-soft);font-size:.92rem}
+  footer .brand{justify-content:center;margin-bottom:10px;font-size:1.05rem;color:var(--ink)}
+
+  /* ---------- FLOATING CHAT WIDGET ---------- */
+  #chatToggle{position:fixed;right:22px;bottom:22px;z-index:60;width:62px;height:62px;border-radius:50%;border:none;cursor:pointer;background:var(--leaf);color:#fff;box-shadow:0 14px 34px -8px rgba(46,158,91,.75);display:grid;place-items:center;transition:transform .18s ease}
+  #chatToggle:hover{transform:scale(1.06)}
+  #chatToggle svg{width:28px;height:28px}
+  #chatToggle .close-ic{display:none}
+  #chatToggle.open .open-ic{display:none}
+  #chatToggle.open .close-ic{display:block}
+
+  #chatPanel{position:fixed;right:22px;bottom:96px;z-index:59;width:390px;max-width:calc(100vw - 32px);height:600px;max-height:calc(100vh - 130px);background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;opacity:0;transform:translateY(14px) scale(.98);pointer-events:none;transition:opacity .2s ease,transform .2s ease}
+  #chatPanel.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+  .panel-head{display:flex;align-items:center;gap:11px;padding:15px 18px;background:var(--forest);color:#fff;flex-shrink:0}
+  .panel-head .av{width:34px;height:34px;border-radius:50%;background:var(--leaf);display:grid;place-items:center;font-size:1.05rem}
+  .panel-head .who{font-weight:600;font-size:.98rem;line-height:1.2}
+  .panel-head .who small{display:block;font-weight:400;font-size:.74rem;color:#B7D3C3}
+  .panel-head .x{margin-left:auto;background:transparent;border:none;color:#fff;cursor:pointer;font-size:1.4rem;line-height:1;opacity:.85}
+  .panel-head .x:hover{opacity:1}
+  #chatPanel iframe{flex:1;width:100%;border:none;background:#fff}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;gap:38px}
+    .lead{max-width:none}
+    .benefits{grid-template-columns:1fr}
+    .offer{padding:40px 28px}
+    .offer-grid{grid-template-columns:1fr;gap:32px}
+    .who-grid{grid-template-columns:1fr 1fr}
+    section{padding:56px 0}
+  }
+  @media (max-width:560px){
+    .who-grid{grid-template-columns:1fr}
+    #chatPanel{right:0;bottom:0;width:100vw;max-width:100vw;height:100vh;max-height:100vh;border-radius:0}
+    #chatToggle{right:16px;bottom:16px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    .bubble{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <div class="brand"><span class="dot">🌿</span> MP Solutions IA</div>
+    <a class="nav-cta" href="#contact">Me contacter</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><span class="pin"></span> Chatbots sur-mesure · Ariège (09)</span>
+      <h1>Un assistant qui répond à vos clients, <span class="hl">à toute heure.</span></h1>
+      <p class="lead">J'installe un chatbot sur votre site. Il répond aux questions de vos clients 24h/24, pendant que vous vous concentrez sur votre métier.</p>
+      <div class="cta-row">
+        <button class="btn btn-primary" id="heroDemo">Essayer la démo
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <a class="btn btn-ghost" href="#contact">Me contacter</a>
+      </div>
+    </div>
+
+    <div class="chat-demo" aria-label="Exemple de conversation">
+      <div class="chat-demo-top">
+        <span class="av">🌿</span>
+        <div class="who">Assistant du commerce<small>En ligne · répond en 2 secondes</small></div>
+      </div>
+      <div class="chat-body">
+        <div class="bubble client b1">Bonjour, vous êtes ouverts dimanche ?</div>
+        <div class="bubble bot b2">Oui&nbsp;! On est ouverts le dimanche de 9h à 12h 🙂</div>
+        <div class="bubble client b3">Et vous faites des réservations ?</div>
+        <div class="bubble bot b4">Bien sûr. Dites-moi la date et le nombre de personnes, je m'en occupe.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section>
+  <div class="wrap">
+    <div class="sec-eyebrow">Ce que ça change pour vous</div>
+    <h2>Vos clients ont leur réponse.<br>Vous gardez votre temps.</h2>
+    <div class="benefits">
+      <div class="bcard">
+        <div class="ic">🌙</div>
+        <h3>Disponible en continu</h3>
+        <p>Une question posée à 23h reçoit une réponse immédiate. Le soir, le week-end, les jours fériés.</p>
+      </div>
+      <div class="bcard">
+        <div class="ic">🎯</div>
+        <h3>Aucun client perdu</h3>
+        <p>Plus de question laissée sans réponse. Chaque visiteur est pris en charge, sans attente.</p>
+      </div>
+      <div class="bcard">
+        <div class="ic">😌</div>
+        <h3>Du temps pour votre métier</h3>
+        <p>L'assistant gère les questions récurrentes. Vous vous concentrez sur l'essentiel.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER -->
+<section>
+  <div class="wrap">
+    <div class="offer">
+      <div class="offer-grid">
+        <div>
+          <div class="sec-eyebrow" style="color:var(--sun)">L'offre</div>
+          <h2>Un tarif à votre mesure.</h2>
+          <p class="price-lead">Le prix dépend de votre activité et de ce que l'assistant vous apporte. Pas de tarif tout fait : nous en discutons ensemble, puis je vous fais une proposition claire.</p>
+          <a class="btn btn-primary" href="mailto:mpsolutionsia@gmail.com?subject=Demande%20de%20devis%20-%20MP%20Solutions%20IA" style="margin-top:10px">Demander un devis gratuit
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+        <div class="incl-block">
+          <div class="incl-title">Ce qui est compris</div>
+          <ul class="incl-list">
+            <li>Un assistant créé sur-mesure pour votre activité</li>
+            <li>L'installation complète sur votre site</li>
+            <li>La maintenance et le suivi dans la durée</li>
+            <li>Un interlocuteur unique, joignable et réactif</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR WHO -->
+<section>
+  <div class="wrap">
+    <div class="sec-eyebrow">Pour qui</div>
+    <h2>Pensé pour les commerces de proximité.</h2>
+    <p class="sec-intro">Campings, hébergements, artisans, commerçants… Si vos clients posent souvent les mêmes questions, cet assistant est fait pour vous.</p>
+    <div class="who-grid">
+      <div class="who-card"><span class="em">🏕️</span><strong>Campings</strong><small>& hébergements</small></div>
+      <div class="who-card"><span class="em">🧽</span><strong>Nettoyage</strong><small>& services</small></div>
+      <div class="who-card"><span class="em">🛠️</span><strong>Artisans</strong><small>tous métiers</small></div>
+      <div class="who-card"><span class="em">🏪</span><strong>Commerces</strong><small>de proximité</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="sec-eyebrow">On en parle&nbsp;?</div>
+    <h2>Envie de voir ce que ça donnerait chez vous&nbsp;?</h2>
+    <p>Écrivez-moi un mot, je vous réponds rapidement. Et pour tester dès maintenant, mon assistant vous attend en bas à droite.</p>
+    <a class="mail" href="mailto:mpsolutionsia@gmail.com">✉️ mpsolutionsia@gmail.com</a>
+    <p class="hint">👉 Cliquez sur la bulle verte en bas à droite pour discuter avec l'assistant.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand"><span class="dot">🌿</span> MP Solutions IA</div>
+    Chatbots IA sur-mesure · Artigat, Ariège (09) · micro-entreprise
+  </div>
+</footer>
+
+<!-- ===== FLOATING CHAT WIDGET ===== -->
+<button id="chatToggle" aria-label="Ouvrir le chat" aria-expanded="false">
+  <svg class="open-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <svg class="close-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6 6 18M6 6l12 12"/></svg>
+</button>
+
+<div id="chatPanel" role="dialog" aria-label="Assistant MP Solutions IA">
+  <div class="panel-head">
+    <span class="av">🌿</span>
+    <div class="who">Assistant MP Solutions IA<small>En ligne · posez votre question</small></div>
+    <button class="x" id="chatClose" aria-label="Fermer le chat">×</button>
+  </div>
+  <iframe id="chatFrame" title="Chatbot MP Solutions IA" data-src="https://demo-chatbot-ia.onrender.com" loading="lazy"></iframe>
+</div>
+
+<script>
+  const toggle = document.getElementById('chatToggle');
+  const panel  = document.getElementById('chatPanel');
+  const frame  = document.getElementById('chatFrame');
+  const closeB = document.getElementById('chatClose');
+  const heroBtn= document.getElementById('heroDemo');
+  let loaded = false;
+
+  function openChat(){
+    if(!loaded){ frame.src = frame.dataset.src; loaded = true; }
+    panel.classList.add('open');
+    toggle.classList.add('open');
+    toggle.setAttribute('aria-expanded','true');
+    toggle.setAttribute('aria-label','Fermer le chat');
+  }
+  function closeChat(){
+    panel.classList.remove('open');
+    toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded','false');
+    toggle.setAttribute('aria-label','Ouvrir le chat');
+  }
+  function toggleChat(){ panel.classList.contains('open') ? closeChat() : openChat(); }
+
+  toggle.addEventListener('click', toggleChat);
+  closeB.addEventListener('click', closeChat);
+  heroBtn.addEventListener('click', openChat);
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeChat(); });
+</script>
+
+</body>
+</html>
