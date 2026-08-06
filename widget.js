@@ -82,7 +82,7 @@
 
   const iframe = document.createElement("iframe");
   iframe.src = CHATBOT_URL;
-  iframe.title = "Assistant Camping Les Eychecadous";
+  iframe.title = "Assistant MP Solutions IA";
   iframe.allow = "microphone";
   iframeContainer.appendChild(iframe);
 
