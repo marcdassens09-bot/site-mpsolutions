@@ -69,7 +69,7 @@
   // ── BULLE ─────────────────────────────────────────────────
   const bubble = document.createElement("div");
   bubble.id = "mpia-bubble";
-  bubble.title = "Discuter avec l'assistant du camping";
+  bubble.title = "Discuter avec l'assistant MP Solutions IA";
   bubble.innerHTML = `
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path d="M20 2H4C2.9 2 2 2.9 2 4v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 12H6l-2 2V4h16v10z"/>
