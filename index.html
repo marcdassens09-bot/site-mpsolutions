@@ -328,9 +328,6 @@
     toggle.classList.remove('open');
     toggle.setAttribute('aria-expanded','false');
     toggle.setAttribute('aria-label','Ouvrir le chat');
-    // Repart de zéro à la prochaine ouverture : on décharge l'iframe.
-    frame.src = 'about:blank';
-    loaded = false;
   }
   function toggleChat(){ panel.classList.contains('open') ? closeChat() : openChat(); }
 
