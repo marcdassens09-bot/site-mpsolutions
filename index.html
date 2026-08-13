@@ -328,6 +328,11 @@
     toggle.classList.remove('open');
     toggle.setAttribute('aria-expanded','false');
     toggle.setAttribute('aria-label','Ouvrir le chat');
+    // Vide l'affichage du chat sans perdre le contexte de la conversation
+    // (le bot garde l'historique, seul l'écran redevient blanc).
+    if(loaded && frame.contentWindow){
+      frame.contentWindow.postMessage('mpia-clear-display', 'https://assistant-mpsolutions.onrender.com');
+    }
   }
   function toggleChat(){ panel.classList.contains('open') ? closeChat() : openChat(); }
 
