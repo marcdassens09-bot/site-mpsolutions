@@ -956,27 +956,80 @@ MpChat.prototype.initMic=function(){
   var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(!SR){this.micBtn.style.display='none';return;}
   var rec=new SR();
-  rec.continuous=true;
+  /* Une écoute courte est plus fiable que continuous=true sur Chrome/Android.
+     Tant que l'utilisateur n'arrête pas, on relance l'écoute et on conserve
+     tous les morceaux déjà reconnus. */
+  rec.continuous=false;
   rec.interimResults=true;
-  var active=false,transcript='',failed=false;
-  this.micBtn.addEventListener('click',function(){
-    if(active){rec.stop();return;}
+  var listening=false,recognizing=false;
+  var savedText='',cycleFinal='',cycleInterim='',restartTimer=null;
+
+  function cleanJoin(a,b){return (a+' '+b).replace(/\s+/g,' ').trim();}
+  function showText(){self.input.value=cleanJoin(savedText,cleanJoin(cycleFinal,cycleInterim));}
+  function setListeningUI(on){
+    self.micBtn.classList.toggle('active',on);
+    var label=on
+      ?(lang==='en'?'Stop and send':'Arrêter et envoyer')
+      :t('chat.mic');
+    self.micBtn.setAttribute('aria-label',label);
+    self.micBtn.title=label;
+  }
+  function startCycle(){
+    if(!listening||recognizing)return;
+    cycleFinal='';cycleInterim='';
     rec.lang=(lang==='en')?'en-US':'fr-FR';
-    transcript='';failed=false;
-    try{rec.start();}catch(e){/* déjà démarré : on ignore */}
+    try{rec.start();}catch(e){
+      restartTimer=setTimeout(startCycle,250);
+    }
+  }
+  function finishDictation(){
+    if(restartTimer){clearTimeout(restartTimer);restartTimer=null;}
+    savedText=cleanJoin(savedText,cycleFinal||cycleInterim);
+    cycleFinal='';cycleInterim='';
+    showText();
+    setListeningUI(false);
+    if(savedText){
+      var message=savedText;
+      savedText='';
+      self.send(message);
+    }
+  }
+
+  this.micBtn.addEventListener('click',function(){
+    if(listening){
+      listening=false;
+      if(recognizing)rec.stop();else finishDictation();
+      return;
+    }
+    listening=true;savedText='';cycleFinal='';cycleInterim='';
+    setListeningUI(true);
+    startCycle();
   });
-  rec.onstart=function(){active=true;self.micBtn.classList.add('active');};
+  rec.onstart=function(){recognizing=true;};
   rec.onend=function(){
-    active=false;self.micBtn.classList.remove('active');
-    if(!failed&&transcript.trim())self.send(transcript.trim());
-    transcript='';
+    recognizing=false;
+    savedText=cleanJoin(savedText,cycleFinal||cycleInterim);
+    cycleFinal='';cycleInterim='';
+    showText();
+    if(listening){restartTimer=setTimeout(startCycle,180);}
+    else finishDictation();
   };
-  rec.onerror=function(){failed=true;active=false;self.micBtn.classList.remove('active');};
+  rec.onerror=function(e){
+    recognizing=false;
+    /* Une absence momentanée de parole ne termine pas la dictée manuelle. */
+    if(e.error==='not-allowed'||e.error==='service-not-allowed'){
+      listening=false;setListeningUI(false);
+    }
+  };
   rec.onresult=function(e){
-    var full='';
-    for(var i=0;i<e.results.length;i++)full+=e.results[i][0].transcript+' ';
-    transcript=full.trim();
-    self.input.value=transcript;
+    var finals='',interim='';
+    for(var i=0;i<e.results.length;i++){
+      if(e.results[i].isFinal)finals+=e.results[i][0].transcript+' ';
+      else interim+=e.results[i][0].transcript+' ';
+    }
+    cycleFinal=finals.trim();
+    cycleInterim=interim.trim();
+    showText();
   };
 };
 var _chats=[];
