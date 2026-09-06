@@ -958,7 +958,7 @@ MpChat.prototype.initMic=function(){
   var rec=new SR();
   rec.continuous=true;
   rec.interimResults=true;
-  var active=false,transcript='',stopTimer=null,failed=false;
+  var active=false,transcript='',failed=false;
   this.micBtn.addEventListener('click',function(){
     if(active){rec.stop();return;}
     rec.lang=(lang==='en')?'en-US':'fr-FR';
@@ -968,7 +968,6 @@ MpChat.prototype.initMic=function(){
   rec.onstart=function(){active=true;self.micBtn.classList.add('active');};
   rec.onend=function(){
     active=false;self.micBtn.classList.remove('active');
-    if(stopTimer){clearTimeout(stopTimer);stopTimer=null;}
     if(!failed&&transcript.trim())self.send(transcript.trim());
     transcript='';
   };
@@ -978,9 +977,6 @@ MpChat.prototype.initMic=function(){
     for(var i=0;i<e.results.length;i++)full+=e.results[i][0].transcript+' ';
     transcript=full.trim();
     self.input.value=transcript;
-    /* Laisse le temps de terminer la phrase, même avec une courte pause. */
-    if(stopTimer)clearTimeout(stopTimer);
-    stopTimer=setTimeout(function(){if(active)rec.stop();},1800);
   };
 };
 var _chats=[];
