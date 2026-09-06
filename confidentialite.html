@@ -84,7 +84,7 @@
   <table>
     <tr><th>Agent</th><th>Données traitées</th><th>Finalité</th></tr>
     <tr><td>Agent camping (Eychecadous)</td><td>Messages de la conversation ; en cas de demande urgente, un extrait horodaté (100 caractères max)</td><td>Répondre à vos questions, transmettre les demandes urgentes au gérant</td></tr>
-    <tr><td>Agent du site vitrine mpsolutionsia.fr (démonstration)</td><td>Messages de la conversation, en mémoire uniquement le temps de la session ; pour mieux vous répondre, l'agent peut effectuer une recherche web publique à partir du nom de société et du lieu que vous lui donnez</td><td>Faire la démonstration du produit en conditions réelles</td></tr>
+    <tr><td>Agent du site vitrine mpsolutionsia.fr (démonstration)</td><td>Messages de la conversation, en mémoire uniquement le temps de la session ; si vous utilisez le micro, votre enregistrement audio est transmis pour transcription ; pour mieux vous répondre, l'agent peut effectuer une recherche web publique à partir du nom de société et du lieu que vous lui donnez</td><td>Transcrire votre dictée et faire la démonstration du produit en conditions réelles</td></tr>
     <tr><td>Démo commerciale en ligne</td><td>Messages de la conversation ; si vous remplissez le formulaire de contact : nom, email, entreprise</td><td>Démonstration du produit, réponse à votre demande de contact</td></tr>
     <tr><td>Agents clients (ex. CleanPro)</td><td>Messages de la conversation</td><td>Répondre à vos questions en tant que visiteur du site du client</td></tr>
   </table>
@@ -95,11 +95,12 @@
 
   <h2>5. Combien de temps ces données sont conservées</h2>
   <p><strong>Conversations de chat</strong> : conservées uniquement en mémoire le temps de la session ; elles sont perdues au redémarrage du service, sauf mention contraire ci-dessous.<br>
+  <strong>Enregistrements vocaux</strong> : utilisés uniquement pour produire la transcription et non enregistrés dans une base de données par MPSOLUTIONSIA.<br>
   <strong>Demandes urgentes (camping)</strong> : conservées 30 jours maximum, purge automatique.<br>
   <strong>Formulaire de contact (démo commerciale)</strong> : conservé dans notre messagerie professionnelle, sans durée de purge automatique au-delà de nos règles générales de gestion de la messagerie.</p>
 
   <h2>6. Qui a accès à ces données</h2>
-  <p>Personne d'autre que Marc-Paul Dassens (MPSOLUTIONSIA) et, pour l'agent camping, le gérant de l'établissement concerné. Aucune donnée n'est vendue, louée ou transmise à un tiers à des fins commerciales. Nos agents font appel à l'API d'Anthropic (fournisseur du modèle de langage) pour générer les réponses ; Anthropic traite le contenu du message le temps de générer la réponse, dans le cadre de son propre <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">engagement de confidentialité</a> — nous ne lui transmettons pas votre identité.</p>
+  <p>Personne d'autre que Marc-Paul Dassens (MPSOLUTIONSIA) et, pour l'agent camping, le gérant de l'établissement concerné. Aucune donnée n'est vendue, louée ou transmise à un tiers à des fins commerciales. Nos agents font appel à l'API d'Anthropic (fournisseur du modèle de langage) pour générer les réponses ; Anthropic traite le contenu du message le temps de générer la réponse, dans le cadre de son propre <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">engagement de confidentialité</a> — nous ne lui transmettons pas votre identité. Lorsque vous utilisez le micro du site vitrine, l'enregistrement est transmis à l'API d'OpenAI uniquement afin de le transcrire en texte, conformément à la <a href="https://openai.com/policies/privacy-policy/" target="_blank" rel="noopener">politique de confidentialité d'OpenAI</a>.</p>
 
   <h2>7. Comment ces données sont protégées</h2>
   <p>Les journaux techniques (logs) masquent automatiquement les emails, numéros de téléphone et numéros de carte bancaire qui pourraient apparaître dans un message. Les fichiers de journalisation ne sont jamais rendus publics ni intégrés au code source des applications. Les échanges avec le site sont chiffrés (HTTPS).</p>
