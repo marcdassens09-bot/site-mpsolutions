@@ -962,7 +962,7 @@ MpChat.prototype.initMic=function(){
   rec.continuous=false;
   rec.interimResults=true;
   var listening=false,recognizing=false;
-  var savedText='',cycleFinal='',cycleInterim='',restartTimer=null;
+  var savedText='',cycleFinal='',cycleInterim='',restartTimer=null,finishTimer=null,sessionEnded=false;
 
   function cleanJoin(a,b){return (a+' '+b).replace(/\s+/g,' ').trim();}
   function showText(){self.input.value=cleanJoin(savedText,cleanJoin(cycleFinal,cycleInterim));}
@@ -983,8 +983,11 @@ MpChat.prototype.initMic=function(){
     }
   }
   function finishDictation(){
+    if(sessionEnded)return;
+    sessionEnded=true;recognizing=false;
     if(restartTimer){clearTimeout(restartTimer);restartTimer=null;}
-    savedText=cleanJoin(savedText,cycleFinal||cycleInterim);
+    if(finishTimer){clearTimeout(finishTimer);finishTimer=null;}
+    savedText=cleanJoin(savedText,cleanJoin(cycleFinal,cycleInterim));
     cycleFinal='';cycleInterim='';
     showText();
     setListeningUI(false);
@@ -998,17 +1001,27 @@ MpChat.prototype.initMic=function(){
   this.micBtn.addEventListener('click',function(){
     if(listening){
       listening=false;
-      if(recognizing)rec.stop();else finishDictation();
+      setListeningUI(false);
+      if(recognizing){
+        /* Chrome doit normalement déclencher onend. À défaut, abort garantit
+           l'arrêt et le texte déjà affiché est envoyé par le délai de secours. */
+        try{rec.stop();}catch(e){}
+        finishTimer=setTimeout(function(){
+          try{if(recognizing)rec.abort();}catch(e){}
+          finishDictation();
+        },900);
+      }else finishDictation();
       return;
     }
-    listening=true;savedText='';cycleFinal='';cycleInterim='';
+    listening=true;sessionEnded=false;savedText='';cycleFinal='';cycleInterim='';
     setListeningUI(true);
     startCycle();
   });
   rec.onstart=function(){recognizing=true;};
   rec.onend=function(){
     recognizing=false;
-    savedText=cleanJoin(savedText,cycleFinal||cycleInterim);
+    if(sessionEnded)return;
+    savedText=cleanJoin(savedText,cleanJoin(cycleFinal,cycleInterim));
     cycleFinal='';cycleInterim='';
     showText();
     if(listening){restartTimer=setTimeout(startCycle,180);}
@@ -1018,10 +1031,11 @@ MpChat.prototype.initMic=function(){
     recognizing=false;
     /* Une absence momentanée de parole ne termine pas la dictée manuelle. */
     if(e.error==='not-allowed'||e.error==='service-not-allowed'){
-      listening=false;setListeningUI(false);
+      listening=false;sessionEnded=true;setListeningUI(false);
     }
   };
   rec.onresult=function(e){
+    if(sessionEnded)return;
     var finals='',interim='';
     for(var i=0;i<e.results.length;i++){
       if(e.results[i].isFinal)finals+=e.results[i][0].transcript+' ';
