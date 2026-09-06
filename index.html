@@ -184,6 +184,8 @@
   .demo-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2rem,4vw,4rem);align-items:start;margin-top:50px}
   @media (max-width:960px){.demo-grid{grid-template-columns:1fr}}
   .chat-card{background:var(--paper);border:var(--rule) solid var(--ink);box-shadow:8px 8px 0 var(--ink);display:flex;flex-direction:column;height:620px;max-height:78svh}
+  .demo-open-body{flex:1;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:22px;padding:34px 30px}
+  .demo-open-body .btn{margin-left:34px}
   .chat-h{display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);padding:12px 16px;flex-shrink:0}
   .chat-h .st{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.1em}
   .chat-h .st i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:8px;animation:blinkd 1.4s infinite}
@@ -231,14 +233,14 @@
   @media (max-width:560px){.float-panel{right:0;bottom:0;width:100vw;height:100svh;max-height:100svh}.fab{right:14px;bottom:14px}}
 
   /* ---- encres ---- */
-  .film-wrap{margin-top:50px}
+  .film-wrap{margin-top:50px;max-width:860px}
   .film{overflow:hidden;cursor:grab;touch-action:pan-y;user-select:none}
   .film:active{cursor:grabbing}
   .film-track{display:flex;gap:14px;padding:20px 14px;background:var(--ink);width:max-content;will-change:transform;
     background-image:radial-gradient(circle at 9px 10px,var(--paper) 3.5px,transparent 4.2px),radial-gradient(circle at 9px calc(100% - 10px),var(--paper) 3.5px,transparent 4.2px);
     background-size:18px 20px;background-repeat:repeat-x}
-  .frame{width:170px;flex-shrink:0;cursor:pointer;text-align:center}
-  .frame .sw{height:104px;border:2px solid transparent;transition:border-color .15s ease;position:relative}
+  .frame{width:190px;flex-shrink:0;cursor:pointer;text-align:center}
+  .frame .sw{height:116px;border:2px solid transparent;transition:border-color .15s ease;position:relative}
   .frame .sw i{position:absolute;inset:0;display:grid;place-items:center;font-style:normal;font-family:var(--f-mono);
     font-weight:700;font-size:.66rem;letter-spacing:.14em;color:rgba(255,255,255,.92)}
   .frame.active .sw{border-color:var(--paper)}
@@ -557,11 +559,17 @@
       <div class="kicker" data-i18n="demo.kicker">ESSAYEZ, ÇA RÉPOND</div>
       <h2 class="band-title" data-i18n="demo.title">La Démon­stration</h2>
     </div>
-    <div class="band-copy" data-i18n-html="demo.copy"><strong>Cet agent tourne réellement dans cette page.</strong> Posez-lui les questions que vos clients vous posent. Il vous demandera qui vous êtes — le nom de votre société et votre lieu — c'est son travail : comprendre votre activité avant de répondre, quel que soit votre métier.</div>
+    <div class="band-copy" data-i18n-html="demo.copy"><strong>L'agent de vos clients tourne réellement sur cette page.</strong> Ouvrez la bulle en bas à droite et posez-lui les questions que vos clients vous posent. Il vous demandera qui vous êtes — le nom de votre société et votre lieu — c'est son travail : comprendre votre activité avant de répondre, quel que soit votre métier.</div>
   </div>
   <div class="demo-grid">
     <div>
-      <div class="chat-card" id="demoChatMount"></div>
+      <div class="chat-card">
+        <div class="chat-h"><span class="st"><i></i><span data-i18n="chat.status">MP·AGENT — EN LIGNE</span></span></div>
+        <div class="demo-open-body">
+          <div class="m bot"><span class="who">MP·AGENT</span><span data-i18n="demo.cardMsg">Bonjour ! Ouvrez-moi avec le bouton ci-dessous — je vous demanderai votre société et votre lieu, puis on essaie ensemble.</span></div>
+          <button class="btn btn-ink" id="demoOpen"><span data-i18n="demo.open">OUVRIR L'AGENT</span> →</button>
+        </div>
+      </div>
       <ul class="demo-notes">
         <li><span class="n">01</span><span data-i18n="demo.n1">Il demande le nom de votre société et votre lieu, puis cherche à vous connaître.</span></li>
         <li><span class="n">02</span><span data-i18n="demo.n2">Il répond à toutes les demandes de TPE et PME : n'importe quel métier.</span></li>
@@ -569,7 +577,7 @@
       </ul>
     </div>
     <div class="band-copy" style="align-self:end" >
-      <p data-i18n="demo.side">Ce démonstrateur est le même moteur que celui que j'installe chez vos clients : il écoute, il cherche, il coordonne. S'il ne sait pas, il le dit — et il vous oriente vers un humain. C'est exactement la différence entre un agent et un chatbot qui répond.</p>
+      <p data-i18n="demo.side">Cette bulle est exactement celle que j'installe chez vos clients : le même agent, le même moteur. Il écoute, il cherche, il coordonne. S'il ne sait pas, il le dit — et il vous oriente vers un humain. C'est la différence entre un agent et un chatbot qui répond.</p>
     </div>
   </div>
 </section>
@@ -708,11 +716,13 @@ fr:{
  "s3.l1":"Compatible avec votre site tel qu'il est","s3.l2":"Installation sans toucher au reste du site","s3.l3":"Transparence : les visiteurs savent qu'ils parlent à une IA","s3.l4":"RGPD et sécurisation dès la mise en service",
  "s3.pull":"Pas d'usine à gaz d'agence : une greffe propre, pensée pour votre métier.",
  "demo.kicker":"ESSAYEZ, ÇA RÉPOND","demo.title":"La Démonstration",
- "demo.copy":"<strong>Cet agent tourne réellement dans cette page.</strong> Posez-lui les questions que vos clients vous posent. Il vous demandera qui vous êtes — le nom de votre société et votre lieu — c'est son travail : comprendre votre activité avant de répondre, quel que soit votre métier.",
+ "demo.copy":"<strong>L'agent de vos clients tourne réellement sur cette page.</strong> Ouvrez la bulle en bas à droite et posez-lui les questions que vos clients vous posent. Il vous demandera qui vous êtes — le nom de votre société et votre lieu — c'est son travail : comprendre votre activité avant de répondre, quel que soit votre métier.",
+ "demo.cardMsg":"Bonjour ! Ouvrez-moi avec le bouton ci-dessous — je vous demanderai votre société et votre lieu, puis on essaie ensemble.",
+ "demo.open":"OUVRIR L'AGENT",
  "demo.n1":"Il demande le nom de votre société et votre lieu, puis cherche à vous connaître.",
  "demo.n2":"Il répond à toutes les demandes de TPE et PME : n'importe quel métier.",
  "demo.n3":"Il sait passer la main : pour un vrai échange, un humain vous répond.",
- "demo.side":"Ce démonstrateur est le même moteur que celui que j'installe chez vos clients : il écoute, il cherche, il coordonne. S'il ne sait pas, il le dit — et il vous oriente vers un humain. C'est exactement la différence entre un agent et un chatbot qui répond.",
+ "demo.side":"Cette bulle est exactement celle que j'installe chez vos clients : le même agent, le même moteur. Il écoute, il cherche, il coordonne. S'il ne sait pas, il le dit — et il vous oriente vers un humain. C'est la différence entre un agent et un chatbot qui répond.",
  "chat.title":"MP·AGENT — DÉMONSTRATION","chat.status":"MP·AGENT — EN LIGNE",
  "chat.greet":"Bonjour — je suis le démonstrateur de MPSOLUTIONSIA. Dites-moi votre métier, le nom de votre société et votre lieu : je vous montrerai ce qu'un agent ferait pour vous.",
  "chat.ph":"Écrivez votre message…","chat.err":"Désolé, un problème est survenu. Réessayez dans un instant.",
@@ -762,11 +772,13 @@ en:{
  "s3.l1":"Works with your site as it is","s3.l2":"Installed without touching the rest of the site","s3.l3":"Transparency: visitors know they talk to an AI","s3.l4":"GDPR and security from the very start",
  "s3.pull":"No agency bloatware: a clean graft, designed for your trade.",
  "demo.kicker":"TRY IT, IT ANSWERS","demo.title":"The Demonstration",
- "demo.copy":"<strong>This agent really runs on this page.</strong> Ask it the questions your customers ask you. It will ask who you are — your company name and location — that's its job: understanding your business before answering, whatever your trade.",
+ "demo.copy":"<strong>The agent your clients get really runs on this page.</strong> Open the bubble at the bottom right and ask it the questions your customers ask you. It will ask who you are — your company name and location — that's its job: understanding your business before answering, whatever your trade.",
+ "demo.cardMsg":"Hi! Open me with the button below — I'll ask for your company and your location, then we'll give it a try.",
+ "demo.open":"OPEN THE AGENT",
  "demo.n1":"It asks for your company name and location, then looks you up.",
  "demo.n2":"It handles requests from any small business: any trade.",
  "demo.n3":"It knows when to hand over: for a real conversation, a human answers you.",
- "demo.side":"This demo runs the same engine I install for my clients: it listens, it looks things up, it coordinates. If it doesn't know, it says so — and points you to a human. That is exactly the difference between an agent and a chatbot that answers.",
+ "demo.side":"This bubble is exactly the one I install for my clients: the same agent, the same engine. It listens, it looks things up, it coordinates. If it doesn't know, it says so — and points you to a human. That is the difference between an agent and a chatbot that answers.",
  "chat.title":"MP·AGENT — DEMO","chat.status":"MP·AGENT — ONLINE",
  "chat.greet":"Hi — I'm the MPSOLUTIONSIA demo agent. Tell me your trade, your company name and where you are: I'll show you what an agent could do for you.",
  "chat.ph":"Write your message…","chat.err":"Sorry, something went wrong. Please try again in a moment.",
@@ -1036,17 +1048,8 @@ MpChat.prototype.send=function(text){
     self.pending=false;self.sendBtn.disabled=false;
   });
 };
-var demoChat=new MpChat(document.getElementById('demoChatMount'));
+/* un seul chat : la bulle flottante, la même que celle livrée chez les clients */
 var floatChat=null;
-
-/* accueil de la démo quand la section devient visible */
-if('IntersectionObserver' in window){
-  var demoSec=document.getElementById('demo');
-  var ioDemo=new IntersectionObserver(function(entries){
-    entries.forEach(function(en){ if(en.isIntersecting){demoChat.greet();} });
-  },{threshold:.3});
-  ioDemo.observe(demoSec);
-}
 
 /* ouverture du chat flottant */
 var fab=document.getElementById('fab');
@@ -1070,24 +1073,18 @@ function closeFloat(){
 fab.addEventListener('click',function(){floatOpen?closeFloat():openFloat();});
 document.getElementById('floatClose').addEventListener('click',closeFloat);
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeFloat();});
-document.getElementById('navDemo').addEventListener('click',function(){
-  document.getElementById('demo').scrollIntoView({behavior:'smooth'});
-  demoChat.greet();
-});
-document.getElementById('heroDemo').addEventListener('click',function(){
-  document.getElementById('demo').scrollIntoView({behavior:'smooth'});
-  demoChat.greet();
-});
+document.getElementById('navDemo').addEventListener('click',openFloat);
+document.getElementById('heroDemo').addEventListener('click',openFloat);
+document.getElementById('demoOpen').addEventListener('click',openFloat);
 
 /* ---------- clics sur les boutons des vitrines démos ---------- */
 document.addEventListener('click', function(e){
   var btn = e.target.closest('.btn-vitrine');
   if(btn){
     var promptText = btn.getAttribute('data-prompt');
-    document.getElementById('demo').scrollIntoView({behavior:'smooth'});
-    if(demoChat && promptText){
-      demoChat.greet();
-      setTimeout(function(){ demoChat.send(promptText); }, 600);
+    openFloat();
+    if(promptText && floatChat){
+      setTimeout(function(){ floatChat.send(promptText); }, 700);
     }
   }
 });
@@ -1201,6 +1198,7 @@ var inkIdx=0;
     f.addEventListener('click',function(){
       if(dragMoved)return;
       applyInk(i);
+      snapTo(i);
     });
     track.appendChild(f);
   });
@@ -1236,6 +1234,14 @@ var inkIdx=0;
   }
   film.addEventListener('pointerup',endDrag);
   film.addEventListener('pointercancel',endDrag);
+  /* molette : fait défiler la bande horizontalement */
+  film.addEventListener('wheel',function(e){
+    if(minX()>=0)return;
+    e.preventDefault();
+    x=Math.max(minX(),Math.min(0,x-(e.deltaY+e.deltaX)));
+    track.style.transition='';
+    track.style.transform='translateX('+x+'px)';
+  },{passive:false});
   function snapTo(i){
     inkIdx=i;
     var target=Math.max(minX(),Math.min(0,-(frames[i].offsetLeft-24)));
@@ -1267,9 +1273,10 @@ var inkIdx=0;
   }
   window.__applyInk=applyInk;
 
-  /* recalcule la position au resize */
+  /* recalcule la position au resize ; place la bande sur l'encre active */
   window.addEventListener('resize',function(){snapTo(inkIdx);});
   savedInk();
+  try{snapTo(inkIdx);}catch(e){}
 })();
 
 /* ---------- spécimen (glisser / pincer / molette) ---------- */
