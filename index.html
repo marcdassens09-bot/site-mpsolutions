@@ -1193,19 +1193,16 @@ var inkIdx=0;
     f.className='frame';
     f.innerHTML='<div class="sw" style="background:'+ink.c+'"><i>N°0'+(i+1)+'</i></div><span class="lb"></span>';
     f.querySelector('.lb').textContent=ink.n.fr.toUpperCase();
-    f.addEventListener('click',function(){
-      if(dragMoved)return;
-      applyInk(i);
-      snapTo(i);
-    });
     track.appendChild(f);
   });
   var frames=Array.prototype.slice.call(track.children);
 
-  var x=0,startX=0,startTX=0,dragging=false,dragMoved=false;
+  var x=0,startX=0,startTX=0,dragging=false,dragMoved=false,pressedIdx=-1;
   function minX(){return Math.min(0,film.clientWidth-track.scrollWidth);}
   film.addEventListener('pointerdown',function(e){
     dragging=true;dragMoved=false;startX=e.clientX;startTX=x;
+    var pressedFrame=e.target.closest('.frame');
+    pressedIdx=pressedFrame?frames.indexOf(pressedFrame):-1;
     film.setPointerCapture(e.pointerId);
   });
   film.addEventListener('pointermove',function(e){
@@ -1215,7 +1212,7 @@ var inkIdx=0;
     x=Math.max(minX(),Math.min(0,startTX+dx));
     track.style.transform='translateX('+x+'px)';
   });
-  function endDrag(){
+  function endDrag(e){
     if(!dragging)return;
     dragging=false;
     if(dragMoved){
@@ -1227,7 +1224,12 @@ var inkIdx=0;
         if(d<bd){bd=d;best=i;}
       });
       snapTo(best);
+    }else if(e.type==='pointerup'&&pressedIdx>=0){
+      /* La capture du pointeur cible .film : on restitue ici le clic à la frame pressée. */
+      applyInk(pressedIdx);
+      snapTo(pressedIdx);
     }
+    pressedIdx=-1;
     setTimeout(function(){dragMoved=false;},50);
   }
   film.addEventListener('pointerup',endDrag);
@@ -1250,10 +1252,12 @@ var inkIdx=0;
   }
 
   function savedInk(){
+    var restored=false;
     try{
       var v=localStorage.getItem(ACCENTS_KEY);
-      if(v!==null){var i=parseInt(v,10);if(i>=0&&i<INKS.length)applyInk(i,true);}
+      if(v!==null){var i=parseInt(v,10);if(i>=0&&i<INKS.length){applyInk(i,true);restored=true;}}
     }catch(e){}
+    if(!restored)applyInk(0,true);
   }
 
   function applyInk(i,silent){
