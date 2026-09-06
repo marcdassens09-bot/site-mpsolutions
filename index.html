@@ -956,20 +956,31 @@ MpChat.prototype.initMic=function(){
   var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(!SR){this.micBtn.style.display='none';return;}
   var rec=new SR();
-  rec.continuous=false;
-  rec.interimResults=false;
-  var active=false;
+  rec.continuous=true;
+  rec.interimResults=true;
+  var active=false,transcript='',stopTimer=null,failed=false;
   this.micBtn.addEventListener('click',function(){
     if(active){rec.stop();return;}
     rec.lang=(lang==='en')?'en-US':'fr-FR';
+    transcript='';failed=false;
     try{rec.start();}catch(e){/* déjà démarré : on ignore */}
   });
   rec.onstart=function(){active=true;self.micBtn.classList.add('active');};
-  rec.onend=function(){active=false;self.micBtn.classList.remove('active');};
-  rec.onerror=function(){active=false;self.micBtn.classList.remove('active');};
+  rec.onend=function(){
+    active=false;self.micBtn.classList.remove('active');
+    if(stopTimer){clearTimeout(stopTimer);stopTimer=null;}
+    if(!failed&&transcript.trim())self.send(transcript.trim());
+    transcript='';
+  };
+  rec.onerror=function(){failed=true;active=false;self.micBtn.classList.remove('active');};
   rec.onresult=function(e){
-    self.input.value=e.results[0][0].transcript;
-    self.send(self.input.value);
+    var full='';
+    for(var i=0;i<e.results.length;i++)full+=e.results[i][0].transcript+' ';
+    transcript=full.trim();
+    self.input.value=transcript;
+    /* Laisse le temps de terminer la phrase, même avec une courte pause. */
+    if(stopTimer)clearTimeout(stopTimer);
+    stopTimer=setTimeout(function(){if(active)rec.stop();},1800);
   };
 };
 var _chats=[];
