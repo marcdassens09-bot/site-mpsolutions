@@ -373,7 +373,14 @@
   body[data-presentation="minimal"] .pg-visual{max-width:280px;margin-top:16px}
   body[data-presentation="minimal"] .h1,body[data-presentation="minimal"] .pg-title,body[data-presentation="minimal"] .band-title{font-family:var(--f-txt);text-transform:none;letter-spacing:normal}
   body[data-presentation="minimal"] .h1{font-size:clamp(2.2rem,6vw,4.4rem)}
-  body[data-presentation="studio"]{--paper:#101f19;--paper2:#1c3227;--ink:#e9f5ed;--ink-soft:#bdcebf}
+  /* Couleurs de lecture propres à chaque présentation, indépendantes des encres. */
+  body[data-presentation="magazine"]{--ink:#163c2d;--ink-soft:#365447;--reading-title:#163c2d}
+  body[data-presentation="cards"]{--ink:#493064;--ink-soft:#5e4771;--reading-title:#493064}
+  body[data-presentation="minimal"]{--ink:#193e68;--ink-soft:#365573;--reading-title:#193e68}
+  body[data-presentation="friendly"]{--ink:#803616;--ink-soft:#754b35;--reading-title:#803616}
+  body[data-presentation="living"]{--ink:#68283f;--ink-soft:#704553;--reading-title:#68283f}
+  body[data-presentation="studio"]{--paper:#101f19;--paper2:#1c3227;--ink:#e9f5ed;--ink-soft:#bdcebf;--reading-title:#bde6ff}
+  body[data-presentation] :is(.pg-title,.band-title){color:var(--reading-title)}
   body[data-presentation="studio"] .masthead{background:#101f19f5}
   body[data-presentation="studio"] .hero{background:radial-gradient(ellipse at 85% 15%,var(--paper2),transparent 65%);min-height:auto;padding-top:130px}
   body[data-presentation="studio"] .h1,body[data-presentation="studio"] .pg-title,body[data-presentation="studio"] .band-title{font-family:var(--f-txt)}
