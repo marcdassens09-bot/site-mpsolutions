@@ -181,6 +181,10 @@
   @media (max-width:900px){.band{padding:72px 20px}.band-head{grid-template-columns:1fr;gap:26px}}
 
   /* ---- démonstration : chat ---- */
+  #demo .band-head{grid-template-columns:1fr;gap:28px}
+  #demo .band-title{overflow-wrap:anywhere}
+  #demo .band-head .band-copy{max-width:68ch}
+  #demo .band-copy p + p{margin-top:1.25rem}
   .demo-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2rem,4vw,4rem);align-items:start;margin-top:50px}
   @media (max-width:960px){.demo-grid{grid-template-columns:1fr}}
   .chat-card{background:var(--paper);border:var(--rule) solid var(--ink);box-shadow:8px 8px 0 var(--ink);display:flex;flex-direction:column;height:620px;max-height:78svh}
@@ -578,7 +582,6 @@
     </div>
     <div class="band-copy" style="align-self:end" >
       <p data-i18n="demo.value">Des questions répétitives prises en charge, des prestations mieux expliquées, des demandes mieux préparées : vous pouvez consacrer votre attention aux clients présents. Les besoins de collecte, de langues et de suivi sont définis ensemble lors de l'installation.</p>
-      <p data-i18n="demo.prices">Professionnel seul : 800 € d'installation + 60 €/mois, soit 1 520 € la première année, puis 720 €/an. Avec personnel : 1 200 € + 120 €/mois, soit 2 640 € la première année, puis 1 440 €/an. Aucune commission sur vos ventes.</p>
       <p data-i18n="demo.side">Quel chiffre d'affaires les demandes récupérées pourraient-elles représenter ? Le diagnostic utilise vos chiffres pour estimer le potentiel mensuel et annuel, le taux de couverture du coût de première année et le délai indicatif d'amortissement en chiffre d'affaires. Les charges de votre activité restent à déduire pour évaluer le bénéfice. Cette estimation dépend de vos chiffres et ne garantit pas une vente.</p>
     </div>
   </div>
@@ -720,7 +723,6 @@ fr:{
  "demo.cardMsg":"Quel est votre métier ? Je vais vous donner deux exemples adaptés, puis estimer avec vos chiffres ce que les demandes récupérées pourraient représenter.",
  "demo.open":"OUVRIR L'AGENT",
  "demo.value":"Des questions répétitives prises en charge, des prestations mieux expliquées, des demandes mieux préparées : vous pouvez consacrer votre attention aux clients présents. Les besoins de collecte, de langues et de suivi sont définis ensemble lors de l'installation.",
- "demo.prices":"Professionnel seul : 800 € d'installation + 60 €/mois, soit 1 520 € la première année, puis 720 €/an. Avec personnel : 1 200 € + 120 €/mois, soit 2 640 € la première année, puis 1 440 €/an. Aucune commission sur vos ventes.",
  "demo.n1":"Il adapte les exemples à votre métier et à vos demandes réelles.",
  "demo.n2":"Il utilise uniquement les chiffres que vous lui donnez.",
  "demo.n3":"Il affiche le potentiel mensuel et annuel, la couverture et l'amortissement indicatif.",
@@ -778,7 +780,6 @@ en:{
  "demo.cardMsg":"What type of business do you run? I will give you two relevant examples, then estimate from your figures what recovered enquiries could represent.",
  "demo.open":"OPEN THE AGENT",
  "demo.value":"Repetitive questions handled, services explained more clearly, enquiries better prepared: you can focus on the customers in front of you. Enquiry collection, languages and tracking requirements are agreed together during setup.",
- "demo.prices":"Solo professional: €800 setup + €60/month, totalling €1,520 in year one, then €720/year. Business with staff: €1,200 setup + €120/month, totalling €2,640 in year one, then €1,440/year. No commission on your sales.",
  "demo.n1":"It adapts its examples to your business and your real enquiries.",
  "demo.n2":"It uses only the figures you provide.",
  "demo.n3":"It shows monthly and annual potential, coverage and indicative payback.",
