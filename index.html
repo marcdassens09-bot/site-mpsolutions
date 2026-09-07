@@ -344,6 +344,71 @@
     .h1 .ch{transform:none}
     .ticker-track{animation:none}
   }
+  /* Présentations globales : un seul contenu, six habillages. */
+  #vitrines{scroll-margin-top:86px}
+  #vitrines .band-head{grid-template-columns:1fr;gap:24px}
+  .presentation-picker{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:28px 0}
+  .presentation-choice{background:var(--paper);color:var(--ink);border:2px solid var(--ink);padding:20px;text-align:left;cursor:pointer;min-width:0;font-size:1rem;transition:transform .2s,box-shadow .2s}
+  .presentation-choice span{display:block}
+  .presentation-choice .style-mark{font-family:var(--f-disp);font-size:1.8rem;margin-bottom:12px;color:var(--accent)}
+  .presentation-choice[aria-pressed="true"]{box-shadow:5px 5px 0 var(--accent);background:var(--paper2)}
+  .presentation-choice:focus-visible{outline:3px solid var(--accent);outline-offset:5px}
+  .presentation-controls{display:flex;flex-wrap:wrap;align-items:center;gap:18px}
+  .style-emoji{display:none}
+  body[data-presentation="cards"] .spreads,body[data-presentation="friendly"] .spreads{padding:28px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;background:var(--paper2)}
+  body[data-presentation="cards"] .spread,body[data-presentation="friendly"] .spread{display:flex;flex-direction:column;gap:24px;padding:28px;min-height:0;border:1px solid var(--ink);border-radius:20px}
+  body[data-presentation="cards"] .gutter,body[data-presentation="friendly"] .gutter{display:none}
+  body[data-presentation="cards"] .pg-title,body[data-presentation="friendly"] .pg-title{font-size:clamp(2rem,3vw,3rem);overflow-wrap:anywhere}
+  body[data-presentation="cards"] .band,body[data-presentation="friendly"] .band{margin:24px;padding:44px 28px;border:1px solid var(--ink);border-radius:20px;background:var(--paper)}
+  body[data-presentation="cards"] .hero{min-height:auto;padding-top:125px;align-items:center;text-align:center;background:var(--paper2)}
+  body[data-presentation="cards"] .hero-top,body[data-presentation="cards"] .toc{width:100%}
+  body[data-presentation="cards"] .hero-ctas{justify-content:center}
+  body[data-presentation="cards"] .chat-card,body[data-presentation="friendly"] .chat-card{border-radius:18px;overflow:hidden;box-shadow:5px 5px 0 var(--accent)}
+  body[data-presentation="minimal"] .hero{align-items:center;text-align:center;min-height:auto;padding-top:125px}
+  body[data-presentation="minimal"] .hero-top,body[data-presentation="minimal"] .toc{width:100%;max-width:900px}
+  body[data-presentation="minimal"] .hero-ctas{justify-content:center}
+  body[data-presentation="minimal"] .spread,body[data-presentation="minimal"] .band{max-width:940px;margin:auto;padding:60px 28px;min-height:0}
+  body[data-presentation="minimal"] .spread,body[data-presentation="minimal"] .band-head,body[data-presentation="minimal"] .demo-grid{grid-template-columns:1fr;gap:28px}
+  body[data-presentation="minimal"] .gutter{display:none}
+  body[data-presentation="minimal"] .pg-visual{max-width:280px;margin-top:16px}
+  body[data-presentation="minimal"] .h1,body[data-presentation="minimal"] .pg-title,body[data-presentation="minimal"] .band-title{font-family:var(--f-txt);text-transform:none;letter-spacing:normal}
+  body[data-presentation="minimal"] .h1{font-size:clamp(2.2rem,6vw,4.4rem)}
+  body[data-presentation="studio"]{--paper:#101f19;--paper2:#1c3227;--ink:#e9f5ed;--ink-soft:#bdcebf}
+  body[data-presentation="studio"] .masthead{background:#101f19f5}
+  body[data-presentation="studio"] .hero{background:radial-gradient(ellipse at 85% 15%,var(--paper2),transparent 65%);min-height:auto;padding-top:130px}
+  body[data-presentation="studio"] .h1,body[data-presentation="studio"] .pg-title,body[data-presentation="studio"] .band-title{font-family:var(--f-txt)}
+  body[data-presentation="studio"] .spread{grid-template-columns:1fr 1.4fr;border-color:var(--ink-soft)}
+  body[data-presentation="studio"] .gutter{display:none}
+  body[data-presentation="studio"] .pg-left{padding:28px;background:var(--paper2);border-radius:18px}
+  body[data-presentation="studio"] .chat-card{box-shadow:0 0 28px var(--paper2);border-radius:16px;overflow:hidden}
+  body[data-presentation="studio"] .layout-tab{color:var(--ink)}
+  body[data-presentation="friendly"] .hero{min-height:auto;padding-top:125px;background:var(--paper2)}
+  body[data-presentation="friendly"] .btn,body[data-presentation="friendly"] .presentation-choice{border-radius:22px}
+  body[data-presentation="friendly"] .style-emoji{display:block;font-size:2rem;margin-bottom:14px}
+  body[data-presentation="living"] .spread:nth-child(even){grid-template-columns:1.15fr var(--rule) 1fr}
+  body[data-presentation="living"] .spread:nth-child(even) .pg-left{grid-column:3;grid-row:1}
+  body[data-presentation="living"] .spread:nth-child(even) .gutter{grid-column:2;grid-row:1}
+  body[data-presentation="living"] .spread:nth-child(even) .pg-right{grid-column:1;grid-row:1}
+  body[data-presentation="living"] .band-head{grid-template-columns:1fr;gap:28px}
+  .pg-title,.band-title{overflow-wrap:anywhere}
+  body.presentation-motion .presentation-choice{animation:style-enter .4s both}
+  body.presentation-motion .presentation-choice:nth-child(2n){animation-delay:.07s}
+  body.presentation-motion .presentation-choice:nth-child(3n){animation-delay:.14s}
+  body[data-presentation="studio"].presentation-motion .pg-left{animation:style-enter .6s both}
+  body[data-presentation="friendly"].presentation-motion .style-emoji{animation:style-wave .7s 2}
+  body[data-presentation="living"].presentation-motion .pg-left{animation:style-enter .65s both}
+  @keyframes style-enter{from{transform:translateY(18px)}to{transform:translateY(0)}}
+  @keyframes style-wave{0%,100%{transform:rotate(0)}35%{transform:rotate(6deg)}70%{transform:rotate(-6deg)}}
+  @media(hover:hover){.presentation-choice:hover{transform:translateY(-4px)}body:is([data-presentation="studio"],[data-presentation="friendly"],[data-presentation="living"]) .btn:hover{transform:translateY(-3px)}}
+  @media(max-width:1050px){body[data-presentation="cards"] .spreads,body[data-presentation="friendly"] .spreads{grid-template-columns:1fr}.presentation-picker{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:760px){
+    body[data-presentation] .spread{display:flex;flex-direction:column;gap:24px;min-height:0}
+    body[data-presentation] .gutter{display:none}
+    body[data-presentation="cards"] .spreads,body[data-presentation="friendly"] .spreads{padding:16px}
+    body[data-presentation="cards"] .band,body[data-presentation="friendly"] .band{margin:16px;padding:32px 18px}
+    .presentation-choice{padding:16px 12px}
+  }
+  @media(prefers-reduced-motion:reduce){body.presentation-motion *,body[data-presentation] .btn,.presentation-choice{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -386,6 +451,7 @@
   <div class="hero-ctas fade-up" style="--fd:.75s">
     <button class="btn btn-ink" id="heroDemo"><span data-i18n="hero.try">ESSAYER LA DÉMO</span> →</button>
     <a class="btn btn-ghost" href="#contact" data-i18n="hero.write">ME CONTACTER</a>
+    <a class="btn btn-ghost" href="#vitrines" data-i18n="style.choose">CHANGER LA PRÉSENTATION</a>
   </div>
   <nav class="toc fade-up" style="--fd:.95s" aria-label="Sommaire">
     <a href="#chapitres"><span class="n">01</span><span class="t" data-i18n="toc.s1">Les chapitres — site, agent, reprise</span><span class="lead"></span><span>p.02</span></a>
@@ -536,23 +602,25 @@
 <section class="band" id="vitrines" data-page="p.03 — MISES EN PAGE" data-page-en="p.03 — LAYOUT DESIGNS">
   <div class="band-head">
     <div>
-      <div class="kicker" data-i18n="vit.kicker">ARCHITECTURE &amp; DESIGN WEB</div>
-      <h2 class="band-title" data-i18n="vit.title">Les Mises en Page</h2>
+      <div class="kicker" data-i18n="vit.kicker">UNE PAGE, SIX PRÉSENTATIONS</div>
+      <h2 class="band-title" data-i18n="vit.title">Choisissez votre présentation</h2>
     </div>
-    <div class="band-copy" data-i18n-html="vit.copy">Chaque commerce a sa propre identité visuelle. Choisissez la **structure de mise en page MP Solutions IA** qui correspond le mieux à l'esprit de votre activité. Cliquez sur un style ci-dessous pour voir la démonstration en direct.</div>
+    <div class="band-copy" data-i18n-html="vit.copy">Cliquez sur un style : toute la page change de présentation, avec les mêmes informations et le même chatbot. Associez-le ensuite à l'encre de votre choix.</div>
   </div>
 
   <!-- Boutons du Sélecteur de Mises en Page -->
-  <div class="layout-switcher" id="layoutSwitcher">
-    <button type="button" class="layout-tab active" data-layout="bento">📐 STYLE 01 — BENTO GRID MODERNE</button>
-    <button type="button" class="layout-tab" data-layout="editorial">📖 STYLE 02 — ÉDITORIAL MAGAZINE</button>
-    <button type="button" class="layout-tab" data-layout="split">🌓 STYLE 03 — SPLIT SCREEN 50/50</button>
-    <button type="button" class="layout-tab" data-layout="minimal">📱 STYLE 04 — MINIMALISTE ÉPURÉ</button>
+  <div class="presentation-picker" id="layoutSwitcher" role="group" aria-label="Présentation / Layout">
+    <button type="button" class="presentation-choice" data-presentation-choice="magazine" aria-pressed="true"><span class="style-mark" aria-hidden="true">01 — Aa</span><span data-i18n="style.magazine">Magazine</span></button>
+    <button type="button" class="presentation-choice" data-presentation-choice="cards" aria-pressed="false"><span class="style-mark" aria-hidden="true">02 — ▦</span><span data-i18n="style.cards">Cartes</span></button>
+    <button type="button" class="presentation-choice" data-presentation-choice="minimal" aria-pressed="false"><span class="style-mark" aria-hidden="true">03 — ─</span><span data-i18n="style.minimal">Vitrine épurée</span></button>
+    <button type="button" class="presentation-choice" data-presentation-choice="studio" aria-pressed="false"><span class="style-mark" aria-hidden="true">04 — ✦</span><span data-i18n="style.studio">Studio lumineux</span></button>
+    <button type="button" class="presentation-choice" data-presentation-choice="friendly" aria-pressed="false"><span class="style-mark" aria-hidden="true">05 — 👋</span><span data-i18n="style.friendly">Accueil expressif</span></button>
+    <button type="button" class="presentation-choice" data-presentation-choice="living" aria-pressed="false"><span class="style-mark" aria-hidden="true">06 — →</span><span data-i18n="style.living">Magazine vivant</span></button>
   </div>
 
-  <!-- Zone de Prévisualisation de la Mise en Page choisie -->
-  <div class="layout-preview-box" id="layoutPreviewContainer">
-    <!-- Le contenu de la mise en page sélectionnée est injecté dynamiquement par JS -->
+  <div class="presentation-controls">
+    <button type="button" class="btn btn-ghost" id="replayPresentation" data-i18n="style.replay">Rejouer les animations</button>
+    <a class="btn btn-ghost" href="#cover" data-i18n="style.top">Voir le haut de la page</a>
   </div>
 </section>
 
@@ -694,14 +762,16 @@ var trailColor='#2E9E5B';
 /* ---------- i18n ---------- */
 var I18N={
 fr:{
+ "style.choose":"CHANGER LA PRÉSENTATION",
  "nav.chapters":"CHAPITRES","nav.vitrines":"VITRINES","nav.demo":"DÉMONSTRATION","nav.inks":"ENCRES","nav.method":"MÉTHODE","nav.contact":"CONTACT",
  "nav.openDemo":"OUVRIR LA DÉMO",
  "hero.edition":"MPSOLUTIONSIA — ÉDITION 2026","hero.place":"ARTIGAT · ARIÈGE (09) · FRANCE",
  "hero.sub":"<strong>Votre prochain client a une question. Donnez-lui une raison de rester.</strong> Votre chatbot répond quand vous êtes occupé ou fermé et facilite les demandes de devis, de réservation ou de commande. Mon objectif : vous aider à développer vos ventes, sans aucune commission sur votre chiffre d'affaires.",
  "hero.try":"ESSAYER LA DÉMO","hero.write":"ME CONTACTER",
  "toc.s1":"Les chapitres — site, agent, reprise","toc.s2":"La démonstration — l'agent en direct","toc.s3":"Encres & spécimen — choisissez la teinte","toc.s4":"La méthode — les 4 étapes","toc.s5":"Contact",
- "vit.kicker":"MODÈLES SECTORIELS","vit.title":"Les Vitrines Démos",
- "vit.copy":"Découvrez nos <strong>5 modèles de vitrines interactives MP Solutions IA</strong>. Chaque modèle est conçu pour répondre aux besoins spécifiques d'un secteur d'activité de nos villages ariégeois. Cliquez sur un modèle pour l'essayer en direct.",
+ "vit.kicker":"UNE PAGE, SIX PRÉSENTATIONS","vit.title":"Choisissez votre présentation",
+ "vit.copy":"Cliquez sur un style : toute la page change de présentation, avec les mêmes informations et le même chatbot. Associez-le ensuite à l'encre de votre choix.",
+ "style.magazine":"Magazine","style.cards":"Cartes","style.minimal":"Vitrine épurée","style.studio":"Studio lumineux","style.friendly":"Accueil expressif","style.living":"Magazine vivant","style.replay":"Rejouer les animations","style.top":"Voir le haut de la page",
  "ticker":"SITES VITRINES · AGENTS IA 24H/24 · TPE–PME D'ARIÈGE · SITE INCLUS SI BESOIN · UN HUMAIN APRÈS, PAS UN TICKET · FORMÉ À VOTRE MÉTIER · ",
  "s1.title":"Le Site","s1.kicker":"CHAPITRE 01 — CONCEPTION",
  "s1.p1":"Chaque TPE ariégeoise a son histoire : un camping à Artigat, une table au Fossat, un atelier en vallée. Je commence toujours par une visite sur place, une écoute, une compréhension de votre activité. Ensuite seulement, je construis — un site à votre image, pas un modèle générique.",
@@ -753,6 +823,11 @@ fr:{
  "toast.copied":"Adresse copiée — à très vite !"
 },
 en:{
+ "style.choose":"CHANGE THE LAYOUT",
+ "nav.vitrines":"LAYOUTS",
+ "vit.kicker":"ONE PAGE, SIX LAYOUTS","vit.title":"Choose your layout",
+ "vit.copy":"Select a style to change the layout of the entire page, with the same information and chatbot. Then combine it with your favourite ink.",
+ "style.magazine":"Magazine","style.cards":"Cards","style.minimal":"Minimal showcase","style.studio":"Luminous studio","style.friendly":"Friendly welcome","style.living":"Living magazine","style.replay":"Replay animations","style.top":"View the top of the page",
  "nav.chapters":"CHAPTERS","nav.demo":"DEMO","nav.inks":"INKS","nav.method":"METHOD","nav.contact":"CONTACT",
  "nav.openDemo":"OPEN THE DEMO",
  "hero.edition":"MPSOLUTIONSIA — 2026 EDITION","hero.place":"ARTIGAT · ARIÈGE (09) · FRANCE",
@@ -1176,93 +1251,51 @@ document.addEventListener('click', function(e){
   }
 });
 
-/* ---------- sélecteur de mises en page interactif ---------- */
+/* ---------- six présentations, contenu et conversation conservés ---------- */
 (function initLayoutSwitcher(){
-  var container = document.getElementById('layoutPreviewContainer');
-  var switcher = document.getElementById('layoutSwitcher');
-  if(!container || !switcher) return;
-
-  var layouts = {
-    bento: `
-      <div class="bento-grid">
-        <div class="bento-box hero-box">
-          <span style="font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;color:var(--accent)">📐 STRUCTURE BENTO GRID</span>
-          <h3>Design Asymétrique Moderne</h3>
-          <p style="color:#B7D3C3;margin-top:8px">Architecture en briques visuelles pour captiver l'œil immédiatement. Idéal pour mettre en avant vos produits phares, vos horaires et votre agent IA.</p>
-        </div>
-        <div class="bento-box accent-box">
-          <h4>🤖 AGENT IA DÉDIÉ</h4>
-          <p style="font-size:.85rem">Intégration directe dans une brique du bento. Réponses 24/7 sans quitter la page.</p>
-        </div>
-        <div class="bento-box">
-          <strong style="font-family:var(--f-mono);font-size:.75rem">⚡ RAPIDITÉ &amp; SEO</strong>
-          <p style="font-size:.85rem;color:var(--ink-soft);margin-top:6px">Chargement instantané sur mobile et optimisation pour la recherche locale en Ariège.</p>
-        </div>
-      </div>
-    `,
-    editorial: `
-      <div class="editorial-layout">
-        <div class="editorial-col">
-          <span style="font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;color:var(--accent)">📖 STYLE ÉDITORIAL &amp; PRESSE</span>
-          <h3>Élégance &amp; Typographie</h3>
-          <p style="color:var(--ink-soft);margin-top:14px;line-height:1.6">Une mise en page raffinée aux accents monographiques. Grands titres sérifés, lignes fines et aération maximale pour les commerces d'exception et le patrimoine.</p>
-        </div>
-        <div style="background:var(--ink);height:100%;min-height:150px"></div>
-        <div class="editorial-col">
-          <div class="editorial-quote">« Un site qui ressemble à un bel ouvrage imprimé sur papier Riso, tout en intégrant la puissance d'un coordinateur virtuel. »</div>
-          <ul class="specs" style="margin-top:20px">
-            <li><span class="i">01</span><span>Mise en valeur de votre histoire et de votre savoir-faire</span></li>
-            <li><span class="i">02</span><span>Harmonie des polices Fraunces &amp; Space Mono</span></li>
-          </ul>
-        </div>
-      </div>
-    `,
-    split: `
-      <div class="split-layout">
-        <div class="split-col-left">
-          <span style="font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;color:var(--accent)">🌓 SPLIT SCREEN 50 / 50</span>
-          <h3 style="font-family:var(--f-disp);font-size:2rem;margin:12px 0">Présentation à Gauche, Action à Droite</h3>
-          <p style="color:#B7D3C3;font-size:.9rem;line-height:1.5">La moitié de l'écran présente votre commerce et vos services, tandis que la seconde moitié est dédiée à l'interaction directe avec vos visiteurs.</p>
-        </div>
-        <div class="split-col-right">
-          <div style="background:var(--paper);border:1.5px solid var(--ink);padding:18px;border-radius:4px">
-            <span style="font-family:var(--f-mono);font-size:.65rem;color:var(--accent);font-weight:700">💬 APERÇU AGENT EN DIRECT</span>
-            <p style="font-size:.88rem;margin-top:8px;color:var(--ink)">« Bonjour ! Que souhaitez-vous savoir sur nos horaires ou nos prestations ? »</p>
-          </div>
-        </div>
-      </div>
-    `,
-    minimal: `
-      <div class="minimal-layout">
-        <div class="minimal-card" style="text-align:center;background:var(--ink);color:var(--paper)">
-          <span style="font-family:var(--f-mono);font-size:.68rem;letter-spacing:.12em;color:var(--accent)">📱 CARTE MINIMALISTE MOBILE-FIRST</span>
-          <h3 style="font-family:var(--f-disp);font-size:1.8rem;margin-top:8px">Lisibilité Maximale au Pouce</h3>
-        </div>
-        <div class="minimal-card">
-          <strong style="font-family:var(--f-mono);font-size:.78rem">✦ L'ESSENTIEL SANS CHICHI</strong>
-          <p style="font-size:.88rem;color:var(--ink-soft);margin-top:6px">Idéal pour aller droit au but : horaires, téléphone direct, adresse au village et l'agent IA à portée de clic.</p>
-        </div>
-      </div>
-    `
-  };
-
-  function renderLayout(name){
-    if(layouts[name]){
-      container.innerHTML = layouts[name];
+  var switcher=document.getElementById('layoutSwitcher');
+  if(!switcher)return;
+  var names=['magazine','cards','minimal','studio','friendly','living'];
+  var storageKey='mpia-presentation';
+  var current='magazine';
+  var buttons=switcher.querySelectorAll('[data-presentation-choice]');
+  document.querySelectorAll('.pg-left').forEach(function(el,i){
+    var icon=document.createElement('span');
+    icon.className='style-emoji';
+    icon.setAttribute('aria-hidden','true');
+    icon.textContent=['🏡','💬','🔧'][i%3];
+    el.prepend(icon);
+  });
+  function replay(){
+    document.body.classList.remove('presentation-motion');
+    requestAnimationFrame(function(){requestAnimationFrame(function(){
+      document.body.classList.add('presentation-motion');
+    });});
+  }
+  function apply(name,interactive){
+    if(names.indexOf(name)<0)name='magazine';
+    current=name;
+    var top=interactive?switcher.getBoundingClientRect().top:0;
+    document.body.dataset.presentation=name;
+    buttons.forEach(function(button){
+      button.setAttribute('aria-pressed',String(button.dataset.presentationChoice===name));
+    });
+    try{localStorage.setItem(storageKey,name);}catch(e){}
+    if(interactive){
+      replay();
+      requestAnimationFrame(function(){
+        var delta=switcher.getBoundingClientRect().top-top;
+        window.scrollBy({top:delta,behavior:'instant'});
+      });
     }
   }
-
-  // Initialisation sur Bento
-  renderLayout('bento');
-
-  switcher.addEventListener('click', function(e){
-    var btn = e.target.closest('.layout-tab');
-    if(!btn) return;
-    switcher.querySelectorAll('.layout-tab').forEach(function(b){ b.classList.remove('active'); });
-    btn.classList.add('active');
-    var layoutName = btn.getAttribute('data-layout');
-    renderLayout(layoutName);
+  switcher.addEventListener('click',function(e){
+    var button=e.target.closest('[data-presentation-choice]');
+    if(button)apply(button.dataset.presentationChoice,true);
   });
+  document.getElementById('replayPresentation').addEventListener('click',replay);
+  try{current=localStorage.getItem(storageKey)||current;}catch(e){}
+  apply(current,false);
 })();
 
 /* ---------- encres (bande film) ---------- */
