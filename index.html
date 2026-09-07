@@ -60,7 +60,7 @@
   @media (max-width:760px){.folio{display:none}.crop{display:none}}
 
   /* ---- masthead ---- */
-  .masthead{position:fixed;top:0;left:0;right:0;z-index:94;background:rgba(246,248,244,.92);backdrop-filter:blur(6px);
+  .masthead{position:relative;z-index:94;background:var(--paper);
     border-bottom:var(--rule) solid var(--ink)}
   .mast-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 44px}
   .brandmark{font-family:var(--f-mono);font-weight:700;font-size:.78rem;letter-spacing:.12em;text-decoration:none;white-space:nowrap}
@@ -557,26 +557,26 @@
       <div class="pg-num">N°03</div>
       <h2 class="pg-title" data-i18n="s3.title">La Reprise</h2>
       <div class="pg-visual">
-        <svg viewBox="0 0 440 300" fill="none" aria-hidden="true">
-          <g transform="rotate(-3 200 150)">
+        <svg viewBox="0 0 440 360" fill="none" aria-hidden="true">
+          <g>
             <rect class="draw" x="60" y="30" width="300" height="210" stroke="var(--ink)" stroke-width="2.5" pathLength="1"/>
             <line class="draw" x1="60" y1="64" x2="360" y2="64" stroke="var(--ink)" stroke-width="2" pathLength="1"/>
             <line class="draw" x1="84" y1="104" x2="240" y2="104" stroke="var(--ink)" stroke-width="5" pathLength="1"/>
             <line class="draw" x1="84" y1="130" x2="210" y2="130" stroke="var(--ink)" stroke-width="5" pathLength="1"/>
             <line class="draw" x1="84" y1="176" x2="150" y2="176" stroke="var(--ink)" stroke-width="3" pathLength="1"/>
           </g>
-          <g transform="rotate(6 356 240)">
-            <rect class="pop d2" x="312" y="206" width="88" height="66" rx="16" fill="var(--accent)"/>
-            <rect class="pop d3" x="324" y="220" width="48" height="9" rx="4.5" fill="#fff"/>
-            <circle class="pop d3 blink-dot" cx="388" cy="258" r="5" fill="#fff"/>
+          <g>
+            <rect class="pop d2" x="312" y="272" width="88" height="66" rx="16" fill="var(--accent)"/>
+            <rect class="pop d3" x="324" y="286" width="48" height="9" rx="4.5" fill="#fff"/>
+            <circle class="pop d3 blink-dot" cx="388" cy="324" r="5" fill="#fff"/>
           </g>
           <g font-family="Space Mono, monospace" font-size="11" letter-spacing="1">
-            <rect class="pop d3" x="24" y="228" width="92" height="26" stroke="var(--ink)" stroke-width="2"/>
-            <text class="pop d3" x="70" y="245" text-anchor="middle" fill="var(--ink)">WordPress</text>
-            <rect class="pop d4" x="24" y="262" width="60" height="26" stroke="var(--ink)" stroke-width="2"/>
-            <text class="pop d4" x="54" y="279" text-anchor="middle" fill="var(--ink)">Wix</text>
-            <rect class="pop d4" x="92" y="262" width="76" height="26" stroke="var(--ink)" stroke-width="2"/>
-            <text class="pop d4" x="130" y="279" text-anchor="middle" fill="var(--ink)">Shopify</text>
+            <rect class="pop d3" x="24" y="272" width="102" height="28" stroke="var(--ink)" stroke-width="2"/>
+            <text class="pop d3" x="75" y="290" text-anchor="middle" fill="var(--ink)">WordPress</text>
+            <rect class="pop d4" x="24" y="310" width="60" height="28" stroke="var(--ink)" stroke-width="2"/>
+            <text class="pop d4" x="54" y="328" text-anchor="middle" fill="var(--ink)">Wix</text>
+            <rect class="pop d4" x="100" y="310" width="86" height="28" stroke="var(--ink)" stroke-width="2"/>
+            <text class="pop d4" x="143" y="328" text-anchor="middle" fill="var(--ink)">Shopify</text>
           </g>
         </svg>
       </div>
