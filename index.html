@@ -724,10 +724,10 @@
 <section class="contact" id="contact" data-page="p.08 — CONTACT" data-page-en="p.08 — CONTACT">
   <div class="kicker" data-i18n="ct.kicker">ON EN PARLE ?</div>
   <h2 class="band-title" data-i18n="ct.title">Écrivez-moi</h2>
-  <a class="mail" href="mailto:mpsolutionsia@gmail.com">mpsolutionsia@gmail.com</a>
+  <a class="mail" href="mailto:contact@mpsolutionsia.fr">contact@mpsolutionsia.fr</a>
   <div class="contact-acts">
     <button class="btn btn-ink" id="copyMail" data-i18n="ct.copy">COPIER L'ADRESSE</button>
-    <a class="btn btn-ghost" href="mailto:mpsolutionsia@gmail.com?subject=Demande%20de%20devis%20-%20MPSOLUTIONSIA" data-i18n="ct.devis">DEMANDER UN DEVIS</a>
+    <a class="btn btn-ghost" href="mailto:contact@mpsolutionsia.fr?subject=Demande%20de%20devis%20-%20MPSOLUTIONSIA" data-i18n="ct.devis">DEMANDER UN DEVIS</a>
   </div>
   <p class="hint" data-i18n="ct.hint">MPSOLUTIONSIA — ARTIGAT (09130) · RÉPONSE RAPIDE, PAR UN HUMAIN</p>
 </section>
@@ -1507,7 +1507,7 @@ var inkIdx=0;
 
 /* ---------- copier l'adresse ---------- */
 document.getElementById('copyMail').addEventListener('click',function(){
-  var mail='mpsolutionsia@gmail.com';
+  var mail='contact@mpsolutionsia.fr';
   function done(){toast(t('toast.copied'));}
   if(navigator.clipboard&&navigator.clipboard.writeText){
     navigator.clipboard.writeText(mail).then(done,done);
