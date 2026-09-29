@@ -341,6 +341,7 @@
   body[data-presentation="cards"]{--ink:#493064;--ink-soft:#5e4771;--reading-title:#493064}
   body[data-presentation="minimal"]{--ink:#193e68;--ink-soft:#365573;--reading-title:#193e68}
   body[data-presentation="friendly"]{--ink:#803616;--ink-soft:#754b35;--reading-title:#803616}
+  body[data-presentation="bistrot"]{--paper:#FBF4E6;--paper2:#F1E4CC;--ink:#3A2216;--ink-soft:#6B4A38;--accent:#3F6B34;--reading-title:#A3281D}
   body[data-presentation="living"]{--ink:#68283f;--ink-soft:#704553;--reading-title:#68283f}
   body[data-presentation="studio"]{--paper:#101f19;--paper2:#1c3227;--ink:#e9f5ed;--ink-soft:#bdcebf;--reading-title:#bde6ff}
   body[data-presentation] :is(.pg-title,.band-title){color:var(--reading-title)}
@@ -572,10 +573,10 @@
 <section class="band" id="vitrines" data-page="p.03 — MISES EN PAGE" data-page-en="p.03 — LAYOUT DESIGNS">
   <div class="band-head">
     <div>
-      <div class="kicker" data-i18n="vit.kicker">UNE PAGE, SIX PRÉSENTATIONS</div>
+      <div class="kicker" data-i18n="vit.kicker">UNE PAGE, SEPT PRÉSENTATIONS</div>
       <h2 class="band-title" data-i18n="vit.title">Choisissez votre présentation</h2>
     </div>
-    <div class="band-copy" data-i18n-html="vit.copy"><strong>Ces présentations ne sont que quelques exemples des possibilités.</strong> D'autres mises en page peuvent être créées sur mesure, selon votre activité et vos envies. Cliquez sur un style pour l'essayer sur cette page, avec les mêmes informations et le même chatbot, puis choisissez votre encre.</div>
+    <div class="band-copy" data-i18n-html="vit.copy"><strong>Ces présentations ne sont que quelques exemples des possibilités.</strong> D'autres mises en page peuvent être créées sur mesure, selon votre activité et vos envies. Cliquez sur un style pour l'essayer sur cette page, avec les mêmes informations et le même chatbot.</div>
   </div>
 
   <!-- Boutons du Sélecteur de Mises en Page -->
@@ -586,6 +587,7 @@
     <button type="button" class="presentation-choice" data-presentation-choice="studio" aria-pressed="false"><span class="style-mark" aria-hidden="true">04 — ✦</span><span data-i18n="style.studio">Studio lumineux</span></button>
     <button type="button" class="presentation-choice" data-presentation-choice="friendly" aria-pressed="false"><span class="style-mark" aria-hidden="true">05 — 👋</span><span data-i18n="style.friendly">Accueil expressif</span></button>
     <button type="button" class="presentation-choice" data-presentation-choice="living" aria-pressed="false"><span class="style-mark" aria-hidden="true">06 — →</span><span data-i18n="style.living">Magazine vivant</span></button>
+    <button type="button" class="presentation-choice" data-presentation-choice="bistrot" aria-pressed="false"><span class="style-mark" aria-hidden="true">07 — ◆</span><span data-i18n="style.bistrot">Bistrot chaleureux</span></button>
   </div>
 
   <div class="presentation-controls">
@@ -699,9 +701,9 @@ fr:{
  "hero.sub":"<strong>Combien de demandes perdez-vous pendant que vous travaillez ou lorsque votre entreprise est fermée ?</strong> Votre assistant IA répond 24h/24 aux premières questions, recueille les besoins et vous transmet les demandes utiles. <strong>Vous gagnez du temps et donnez à davantage de visiteurs une raison de devenir clients.</strong> Une solution conçue pour votre métier, sans commission sur votre chiffre d’affaires.",
  "hero.try":"ESSAYER LA DÉMO","hero.write":"ME CONTACTER",
  "toc.s1":"Les chapitres — site, agent, reprise","toc.s2":"La démonstration — l'agent en direct","toc.s4":"La méthode — les 4 étapes","toc.s5":"Contact",
- "vit.kicker":"UNE PAGE, SIX PRÉSENTATIONS","vit.title":"Choisissez votre présentation",
- "vit.copy":"<strong>Ces présentations ne sont que quelques exemples des possibilités.</strong> D'autres mises en page peuvent être créées sur mesure, selon votre activité et vos envies. Cliquez sur un style pour l'essayer sur cette page, avec les mêmes informations et le même chatbot, puis choisissez votre encre.",
- "style.magazine":"Magazine","style.cards":"Cartes","style.minimal":"Vitrine épurée","style.studio":"Studio lumineux","style.friendly":"Accueil expressif","style.living":"Magazine vivant","style.replay":"Rejouer les animations","style.top":"Voir le haut de la page",
+ "vit.kicker":"UNE PAGE, SEPT PRÉSENTATIONS","vit.title":"Choisissez votre présentation",
+ "vit.copy":"<strong>Ces présentations ne sont que quelques exemples des possibilités.</strong> D'autres mises en page peuvent être créées sur mesure, selon votre activité et vos envies. Cliquez sur un style pour l'essayer sur cette page, avec les mêmes informations et le même chatbot.",
+ "style.magazine":"Magazine","style.cards":"Cartes","style.minimal":"Vitrine épurée","style.studio":"Studio lumineux","style.friendly":"Accueil expressif","style.living":"Magazine vivant","style.bistrot":"Bistrot chaleureux","style.replay":"Rejouer les animations","style.top":"Voir le haut de la page",
  "ticker":"SITES VITRINES · AGENTS IA 24H/24 · TPE–PME D'ARIÈGE · SITE INCLUS SI BESOIN · UN HUMAIN APRÈS, PAS UN TICKET · FORMÉ À VOTRE MÉTIER · ",
  "s1.title":"Le Site","s1.kicker":"CHAPITRE 01 — CONCEPTION",
  "s1.p1":"Chaque TPE ariégeoise a son histoire : un camping à Artigat, une table au Fossat, un atelier en vallée. Je commence toujours par une visite sur place, une écoute, une compréhension de votre activité. Ensuite seulement, je construis — un site à votre image, pas un modèle générique.",
@@ -748,9 +750,9 @@ fr:{
 en:{
  "style.choose":"CHANGE THE LAYOUT",
  "nav.vitrines":"LAYOUTS",
- "vit.kicker":"ONE PAGE, SIX LAYOUTS","vit.title":"Choose your layout",
- "vit.copy":"<strong>These layouts are just a few examples of what is possible.</strong> Other layouts can be tailored to your business and preferences. Select a style to try it on this page, with the same information and chatbot, then choose your ink.",
- "style.magazine":"Magazine","style.cards":"Cards","style.minimal":"Minimal showcase","style.studio":"Luminous studio","style.friendly":"Friendly welcome","style.living":"Living magazine","style.replay":"Replay animations","style.top":"View the top of the page",
+ "vit.kicker":"ONE PAGE, SEVEN LAYOUTS","vit.title":"Choose your layout",
+ "vit.copy":"<strong>These layouts are just a few examples of what is possible.</strong> Other layouts can be tailored to your business and preferences. Select a style to try it on this page, with the same information and chatbot.",
+ "style.magazine":"Magazine","style.cards":"Cards","style.minimal":"Minimal showcase","style.studio":"Luminous studio","style.friendly":"Friendly welcome","style.living":"Living magazine","style.bistrot":"Warm bistro","style.replay":"Replay animations","style.top":"View the top of the page",
  "nav.chapters":"CHAPTERS","nav.demo":"DEMO","nav.method":"METHOD","nav.contact":"CONTACT",
  "nav.openDemo":"OPEN THE DEMO",
  "hero.edition":"MPSOLUTIONSIA — 2026 EDITION","hero.place":"ARTIGAT · ARIÈGE (09) · FRANCE",
@@ -1166,11 +1168,11 @@ document.addEventListener('click', function(e){
   }
 });
 
-/* ---------- six présentations, contenu et conversation conservés ---------- */
+/* ---------- sept présentations, contenu et conversation conservés ---------- */
 (function initLayoutSwitcher(){
   var switcher=document.getElementById('layoutSwitcher');
   if(!switcher)return;
-  var names=['magazine','cards','minimal','studio','friendly','living'];
+  var names=['magazine','cards','minimal','studio','friendly','living','bistrot'];
   var storageKey='mpia-presentation';
   var current='magazine';
   var buttons=switcher.querySelectorAll('[data-presentation-choice]');
