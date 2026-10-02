@@ -1162,6 +1162,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeFloat()
 document.getElementById('navDemo').addEventListener('click',openFloat);
 document.getElementById('heroDemo').addEventListener('click',openFloat);
 document.getElementById('demoOpen').addEventListener('click',openFloat);
+/* lien ?chat=... (QR code de la carte de visite) : le chat s'ouvre tout seul */
+try{if(new URLSearchParams(location.search).has('chat'))setTimeout(openFloat,600);}catch(e){}
 
 /* ---------- clics sur les boutons des vitrines démos ---------- */
 document.addEventListener('click', function(e){
