@@ -1148,6 +1148,13 @@ function closeFloat(){
   floatOpen=false;
   floatPanel.classList.remove('open');
   fab.setAttribute('aria-expanded','false');
+  /* conversation effacée à la fermeture : rien ne revient à la réouverture */
+  if(floatChat){
+    var i=_chats.indexOf(floatChat);
+    if(i>=0)_chats.splice(i,1);
+    document.getElementById('floatChatMount').innerHTML='';
+    floatChat=null;
+  }
 }
 fab.addEventListener('click',function(){floatOpen?closeFloat():openFloat();});
 document.getElementById('floatClose').addEventListener('click',closeFloat);
