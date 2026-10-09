@@ -3,753 +3,371 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>MPSOLUTIONSIA — Agents IA pour les TPE·PME d'Ariège</title>
-<meta name="description" content="MPSOLUTIONSIA intègre l'intelligence artificielle dans la relation client des TPE et PME de l'Ariège : un agent qui coordonne 24h/24 — pas un chatbot qui répond." />
-<meta name="theme-color" content="#2E9E5B" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231B4332'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%232E9E5B'/%3E%3C/svg%3E">
+<title>MP Solutions IA, assistants IA pour les artisans et petites entreprises d'Ariège</title>
+<meta name="description" content="Marc-Paul Dassens, à Artigat, installe sur le site des artisans, commerçants et petites entreprises d'Ariège un assistant IA qui répond aux clients avec leurs informations." />
+<meta name="theme-color" content="#1b3a2b" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231b3a2b'/%3E%3Ccircle cx='22' cy='22' r='5' fill='%23E8730A'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Archivo:ital,wght@0,100..900;1,100..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<script>document.documentElement.classList.add('js');</script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#F6F8F4;
-    --paper2:#E9F2EC;
-    --ink:#16241D;
-    --ink-soft:#4A5B52;
-    --accent:#2E9E5B;
-    --rule:1.5px;
-    --f-disp:"Fraunces",Georgia,serif;
-    --f-txt:"Archivo",system-ui,sans-serif;
-    --f-mono:"Space Mono",monospace;
+    --paper:#FFFFFF;
+    --ink:#1b3a2b;
+    --ink-soft:#4b6357;
+    --accent:#E8730A;
+    --tint:#EEF3EF;
+    --line:#D9E2DC;
+    --f:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --gutter:6.5rem;
+    --col:40rem;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{
-    font-family:var(--f-txt);
-    background:var(--paper);
-    color:var(--ink);
-    line-height:1.55;
-    overflow-x:hidden;
-    -webkit-font-smoothing:antialiased;
-  }
-  ::selection{background:var(--accent);color:var(--paper)}
-  a{color:inherit}
-  button{font-family:inherit}
+  body{font-family:var(--f);font-size:1.0625rem;line-height:1.7;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+  a{color:var(--ink);text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:3px}
+  a:hover{color:var(--accent)}
+  :focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+  button{font:inherit;color:inherit}
+  p+p{margin-top:1rem}
 
-  /* ---- grain papier ---- */
-  .grain{position:fixed;inset:0;z-index:98;pointer-events:none;opacity:.4;mix-blend-mode:multiply;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");}
+  /* cadre : une marge pour les marqueurs, une colonne de lecture */
+  .frame{max-width:calc(var(--gutter) + var(--col) + 2rem + 3rem);margin:0 auto;padding:0 1.5rem}
+  .sec{display:grid;grid-template-columns:var(--gutter) minmax(0,var(--col));column-gap:2rem;margin-top:6rem}
+  .sec>.body{grid-column:2}
+  .mark{grid-column:1;font-weight:600;font-size:2.5rem;line-height:1.1;color:var(--accent);text-align:right;white-space:nowrap}
 
-  /* ---- traits de coupe ---- */
-  .crop{position:fixed;z-index:97;width:26px;height:26px;pointer-events:none;opacity:.75}
-  .crop::before,.crop::after{content:"";position:absolute;background:var(--ink)}
-  .crop::before{width:100%;height:1.5px}
-  .crop::after{height:100%;width:1.5px}
-  .crop.tl{top:10px;left:10px}.crop.tr{top:10px;right:10px;transform:scaleX(-1)}
-  .crop.bl{bottom:10px;left:10px;transform:scaleY(-1)}.crop.br{bottom:10px;right:10px;transform:scale(-1)}
+  /* en-tête */
+  .top{border-bottom:1px solid var(--line)}
+  .top .frame{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-top:1.1rem;padding-bottom:1.1rem}
+  .brand{text-decoration:none;font-weight:600;font-size:1.15rem;line-height:1.3;display:block;white-space:nowrap}
+  .brand:hover{color:var(--ink)}
+  .motto{font-size:.85rem;color:var(--ink-soft);line-height:1.4}
+  .nav{display:flex;align-items:center;gap:1.4rem;font-size:.95rem}
+  .nav a,.nav .linkbtn{text-decoration:none;font-weight:500;white-space:nowrap}
+  .linkbtn{background:none;border:none;cursor:pointer;padding:0}
+  .linkbtn:hover{color:var(--accent)}
+  .lang{border:1px solid var(--line);border-radius:4px;padding:.25rem .6rem;font-size:.85rem}
 
-  /* ---- trail riso ---- */
-  #riso{position:fixed;inset:0;z-index:96;pointer-events:none}
+  /* ouverture */
+  .sec.hero{padding-top:5rem;margin-top:0}
+  h1{font-weight:600;font-size:clamp(2rem,1.2rem + 3vw,3rem);line-height:1.15;letter-spacing:-.01em;max-width:18ch}
+  .lead{font-size:1.2rem;line-height:1.6;margin-top:1.5rem;max-width:34em}
+  .me{margin-top:1.25rem;color:var(--ink-soft)}
+  .actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
+  .btn{display:inline-block;font-weight:500;font-size:1rem;line-height:1.3;padding:.85rem 1.3rem;border-radius:6px;text-decoration:none;cursor:pointer;border:2px solid var(--ink)}
+  .btn-main{background:var(--ink);color:#fff}
+  .btn-main:hover{background:#0f2a1d;color:#fff;border-color:#0f2a1d}
+  .btn-alt{background:#fff;color:var(--ink)}
+  .btn-alt:hover{color:var(--ink);background:var(--tint)}
 
-  /* ---- repères de folio ---- */
-  .folio{position:fixed;left:0;right:0;bottom:0;z-index:95;display:flex;justify-content:space-between;
-    padding:8px 44px;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.14em;color:var(--ink-soft);pointer-events:none}
-  .folio .pg{transition:opacity .3s ease}
+  /* titres de section */
+  h2{font-weight:600;font-size:1.75rem;line-height:1.25;margin-bottom:1.1rem}
+  h3{font-weight:600;font-size:1.125rem;line-height:1.35;margin-bottom:.4rem}
+  .block{margin-top:2.75rem}
 
-  @media (max-width:760px){.folio{display:none}.crop{display:none}}
+  /* exemple de conversation */
+  .scene{margin-top:1.75rem;background:var(--tint);border-radius:10px;padding:1.4rem 1.4rem 1.2rem}
+  .scene-cap{font-size:.95rem;color:var(--ink-soft);margin-bottom:1rem}
+  .bub{max-width:30rem;padding:.75rem 1rem;border-radius:14px;font-size:1rem;line-height:1.55}
+  .bub.visitor{margin-left:auto;background:#fff;border:1px solid var(--line);border-bottom-right-radius:4px}
+  .bub.bot{margin-top:.75rem;background:var(--ink);color:#fff;border-bottom-left-radius:4px}
+  .scene-after{margin-top:1rem;font-size:.95rem;color:var(--ink-soft)}
 
-  /* ---- masthead ---- */
-  .masthead{position:relative;z-index:94;background:var(--paper);
-    border-bottom:var(--rule) solid var(--ink)}
-  .mast-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 44px}
-  .brandmark{font-family:var(--f-mono);font-weight:700;font-size:.78rem;letter-spacing:.12em;text-decoration:none;white-space:nowrap}
-  .brandmark b{color:var(--accent)}
-  .mast-nav{display:flex;gap:22px;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.1em}
-  .mast-nav a{text-decoration:none;position:relative}
-  .mast-nav a:hover{color:var(--accent)}
-  .mast-right{display:flex;align-items:center;gap:10px}
-  .flag{background:transparent;border:1.5px solid var(--ink);border-radius:999px;width:34px;height:34px;cursor:pointer;
-    font-size:.95rem;display:grid;place-items:center;line-height:1;transition:transform .15s ease}
-  .flag:hover{transform:scale(1.1)}
-  .demo-btn{font-family:var(--f-mono);font-weight:700;font-size:.68rem;letter-spacing:.1em;background:var(--ink);color:var(--paper);
-    border:var(--rule) solid var(--ink);padding:9px 16px;cursor:pointer;transition:background .15s ease,color .15s ease}
-  .demo-btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
-  @media (max-width:900px){.mast-nav{display:none}.mast-inner{padding:10px 20px}}
+  /* deux colonnes de texte */
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+  .pair ul{list-style:none}
+  .pair li{position:relative;padding-left:1.1rem;margin-top:.45rem;line-height:1.55}
+  .pair li::before{content:"";position:absolute;left:0;top:.62em;width:.42rem;height:.42rem;border-radius:50%;background:var(--accent)}
+  .pair .no li::before{background:none;border:2px solid var(--ink-soft);width:.38rem;height:.38rem}
 
-  main{padding-top:0}
-  section{position:relative}
+  /* les étapes : une vraie suite, donc numérotées */
+  .steps{list-style:none;counter-reset:s;margin-top:.6rem}
+  .steps li{counter-increment:s;position:relative;padding-left:2.2rem;margin-top:.8rem;line-height:1.55}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:-.05rem;font-weight:600;font-size:1.15rem;color:var(--accent)}
 
-  /* ---- couverture ---- */
-  .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:120px 44px 56px}
-  .hero-top{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.14em;
-    border-bottom:var(--rule) solid var(--ink);padding-bottom:12px;margin-bottom:auto;color:var(--ink-soft)}
-  .h1{font-family:var(--f-disp);font-weight:900;text-transform:uppercase;line-height:.92;letter-spacing:-.015em;
-    font-size:clamp(2.6rem,9.6vw,8.2rem);margin:34px 0 22px}
-  .h1 .line{display:block;overflow:hidden;padding:.05em 0}
-  .h1 .ch{display:inline-block;transform:translateY(115%) rotate(4deg);transition:transform .9s cubic-bezier(.16,1,.3,1)}
-  html.js body.loaded .h1 .ch{transform:translateY(0) rotate(0)}
-  .h1 .outline{color:transparent;-webkit-text-stroke:2.5px var(--ink)}
-  .h1 .pt{color:var(--accent);-webkit-text-stroke:0}
-  .hero-sub{max-width:52ch;font-size:clamp(1.02rem,1.6vw,1.25rem);color:var(--ink-soft)}
-  .hero-sub strong{color:var(--ink)}
-  .hero-ctas{display:flex;flex-wrap:wrap;gap:14px;margin:26px 0 40px}
-  .btn{font-family:var(--f-mono);font-weight:700;font-size:.8rem;letter-spacing:.08em;padding:15px 26px;cursor:pointer;
-    text-decoration:none;display:inline-flex;align-items:center;gap:10px;border:var(--rule) solid var(--ink);transition:.15s ease}
-  .btn-ink{background:var(--ink);color:var(--paper)}
-  .btn-ink:hover{background:var(--accent);border-color:var(--accent)}
-  .btn-ghost{background:transparent;color:var(--ink)}
-  .btn-ghost:hover{background:var(--ink);color:var(--paper)}
-  .fade-up{opacity:0;transform:translateY(16px);transition:opacity .8s ease,transform .8s ease;transition-delay:var(--fd,0s)}
-  html.js body.loaded .fade-up{opacity:1;transform:none}
-  .toc{border-top:var(--rule) solid var(--ink);padding-top:18px;display:flex;flex-direction:column;gap:9px}
-  .toc a{display:flex;align-items:baseline;gap:12px;text-decoration:none;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.1em}
-  .toc a:hover .t{color:var(--accent)}
-  .toc .n{font-weight:700}
-  .toc .lead{flex:1;border-bottom:2px dotted var(--ink);opacity:.45;transform:translateY(-4px)}
-  @media (max-width:760px){.hero{padding:96px 20px 40px}}
+  .small{font-size:.95rem;color:var(--ink-soft)}
 
-  /* ---- bandeau défilant ---- */
-  .ticker{background:var(--ink);color:var(--paper);overflow:hidden;border-top:var(--rule) solid var(--ink);border-bottom:var(--rule) solid var(--ink)}
-  .ticker-track{display:flex;gap:0;white-space:nowrap;padding:11px 0;font-family:var(--f-mono);font-size:.74rem;letter-spacing:.14em;
-    animation:tick 30s linear infinite}
-  .ticker span{padding-right:.5em}
-  .ticker .dot{color:var(--accent)}
-  @keyframes tick{to{transform:translateX(-50%)}}
+  /* contact */
+  .mail{display:inline-block;font-weight:600;font-size:clamp(1.3rem,1rem + 2vw,2rem);word-break:break-word;margin-top:.4rem}
+  .sign{margin-top:2.5rem}
+  .sign strong{display:block;font-weight:600;font-size:1.15rem}
+  .sign span{color:var(--ink-soft);font-size:.95rem}
 
-  /* ---- chapitres (spreads) : défilement naturel les uns derrière les autres ---- */
-  .spreads{position:relative;border-bottom:var(--rule) solid var(--ink)}
-  .spread{position:relative;top:auto;height:auto;min-height:75vh;overflow:visible;display:grid;
-    grid-template-columns:1fr var(--rule) 1.15fr;gap:0 clamp(2rem,4.5vw,4.5rem);
-    padding:80px 44px;background:var(--paper);border-bottom:var(--rule) solid var(--ink)}
-  .spread:last-child{border-bottom:none}
-  .spread .gutter{background:var(--ink);height:100%;width:var(--rule);justify-self:center}
-  .pg-left{display:flex;flex-direction:column;min-width:0}
-  .pg-num{font-family:var(--f-mono);font-weight:700;font-size:clamp(1rem,2vw,1.4rem);color:var(--accent)}
-  .pg-title{font-family:var(--f-disp);font-weight:900;text-transform:uppercase;line-height:.95;letter-spacing:-.02em;
-    font-size:clamp(2.4rem,5.5vw,5rem);margin:10px 0 26px}
-  .pg-visual{margin-top:auto}
-  .pg-visual svg{width:100%;max-width:440px;height:auto;display:block}
-  .pg-right{display:flex;flex-direction:column;justify-content:center;min-width:0;gap:18px}
-  .kicker{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.18em;color:var(--accent);font-weight:700}
-  .pg-right p{font-size:clamp(.98rem,1.25vw,1.12rem);color:var(--ink-soft)}
-  .specs{list-style:none;border-top:var(--rule) solid var(--ink)}
-  .specs li{display:flex;gap:14px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--ink);font-size:.92rem}
-  .specs .i{font-family:var(--f-mono);font-weight:700;font-size:.7rem;color:var(--accent)}
-  .pull{font-family:var(--f-disp);font-style:italic;font-weight:600;font-size:clamp(1.1rem,1.7vw,1.45rem);line-height:1.3}
-  .pull::before{content:"« ";color:var(--accent)}
-  .pull::after{content:" »";color:var(--accent)}
-  .folio-in{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.14em;
-    color:var(--ink-soft);margin-top:18px}
+  /* pied de page */
+  footer{margin-top:6rem;border-top:1px solid var(--line)}
+  footer .frame{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem 2rem;padding-top:1.5rem;padding-bottom:2rem;font-size:.85rem;color:var(--ink-soft);line-height:1.5}
+  footer nav{display:flex;gap:1.4rem}
+  footer a{color:var(--ink-soft)}
 
-  /* animations des schémas (clé .live) */
-  .spread .draw{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.1s ease .2s}
-  .spread.live .draw{stroke-dashoffset:0}
-  .spread .pop{opacity:0;transform:translateY(14px) scale(.96);transition:opacity .5s ease,transform .5s cubic-bezier(.16,1,.3,1)}
-  .spread.live .pop{opacity:1;transform:none}
-  .spread.live .pop.d1{transition-delay:.5s}.spread.live .pop.d2{transition-delay:.8s}
-  .spread.live .pop.d3{transition-delay:1.1s}.spread.live .pop.d4{transition-delay:1.4s}
-  .spin{transform-origin:center;animation:none}
-  .spread.live .spin{animation:spin 14s linear infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .blink-dot{animation:none}
-  .spread.live .blink-dot{animation:blinkd 1.2s ease-in-out infinite}
-  @keyframes blinkd{0%,100%{opacity:.25}50%{opacity:1}}
-
-  /* repli mobile / mouvement réduit : chapitres empilés */
-  @media (max-width:900px){
-    .spread{position:relative;height:auto;min-height:auto;opacity:1!important;visibility:visible!important;
-      transform:none!important;grid-template-columns:1fr;gap:30px;padding:64px 20px}
-    .spread .gutter{display:none}
-    .pg-visual{margin-top:0}
-  }
-  @media (prefers-reduced-motion:reduce){
-    .spread{position:relative;height:auto;opacity:1!important;visibility:visible!important;transform:none!important;grid-template-columns:1fr;gap:30px}
-    .spread .gutter{display:none}
-    *{animation:none!important;scroll-behavior:auto!important}
-  }
-
-  /* ---- sections éditoriales ---- */
-  .band{padding:110px 44px;border-bottom:var(--rule) solid var(--ink)}
-  .band-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(2rem,5vw,5rem);align-items:start}
-  .band-title{font-family:var(--f-disp);font-weight:900;text-transform:uppercase;line-height:.95;letter-spacing:-.02em;
-    font-size:clamp(2.2rem,5vw,4.2rem)}
-  .band-copy{color:var(--ink-soft);font-size:clamp(1rem,1.3vw,1.15rem)}
-  .band-copy strong{color:var(--ink)}
-  @media (max-width:900px){.band{padding:72px 20px}.band-head{grid-template-columns:1fr;gap:26px}}
-
-  /* ---- démonstration : chat ---- */
-  #demo .band-head{grid-template-columns:1fr;gap:28px}
-  #demo .band-title{overflow-wrap:anywhere}
-  #demo .band-head .band-copy{max-width:68ch}
-  #demo .band-copy p + p{margin-top:1.25rem}
-  .demo-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2rem,4vw,4rem);align-items:start;margin-top:50px}
-  @media (max-width:960px){.demo-grid{grid-template-columns:1fr}}
-  .chat-card{background:var(--paper);border:var(--rule) solid var(--ink);box-shadow:8px 8px 0 var(--ink);display:flex;flex-direction:column;height:620px;max-height:78svh}
-  .demo-open-body{flex:1;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:22px;padding:34px 30px}
-  .demo-open-body .btn{margin-left:34px}
-  .chat-h{display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);padding:12px 16px;flex-shrink:0}
-  .chat-h .st{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.1em}
-  .chat-h .st i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:8px;animation:blinkd 1.4s infinite}
-  .chat-log{flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:12px}
-  .m{max-width:86%;padding:11px 14px;font-size:.92rem;line-height:1.45;white-space:pre-wrap;word-wrap:break-word}
-  .m.bot{align-self:flex-start;background:var(--paper2);border:1.5px solid var(--ink)}
-  .m.user{align-self:flex-end;background:var(--ink);color:var(--paper);border:1.5px solid var(--ink)}
-  .m a{color:inherit;font-weight:700}
-  .m .who{display:block;font-family:var(--f-mono);font-size:.58rem;letter-spacing:.14em;opacity:.65;margin-bottom:4px;text-transform:uppercase}
-  .typing{display:flex;gap:5px;align-self:flex-start;background:var(--paper2);border:1.5px solid var(--ink);padding:13px 15px}
+  /* bulle de chat de démonstration */
+  .fab{position:fixed;right:22px;bottom:24px;z-index:93;width:58px;height:58px;border-radius:50%;background:var(--ink);color:#fff;border:none;cursor:pointer;display:grid;place-items:center;box-shadow:0 0 0 4px #fff,0 0 0 6px var(--accent)}
+  .fab:hover{background:#0f2a1d}
+  .fab svg{width:26px;height:26px}
+  .float-panel{position:fixed;right:22px;bottom:98px;z-index:93;width:min(390px,calc(100vw - 32px));height:min(580px,calc(100svh - 140px));
+    background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 36px rgba(27,58,43,.18);display:flex;flex-direction:column;overflow:hidden;
+    opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .2s ease,transform .2s ease}
+  .float-panel.open{opacity:1;transform:none;pointer-events:auto}
+  .chat-h{display:flex;align-items:center;gap:10px;background:var(--ink);color:#fff;padding:.8rem 1rem;flex-shrink:0;font-weight:500;font-size:.95rem}
+  .chat-h .st i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:8px}
+  .chat-h .x{margin-left:auto;background:none;border:none;color:#fff;cursor:pointer;font-size:1.4rem;line-height:1;padding:0 .2rem}
+  .chat-log{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.7rem}
+  .m{max-width:86%;padding:.65rem .9rem;font-size:.95rem;line-height:1.5;white-space:pre-wrap;word-wrap:break-word;border-radius:14px}
+  .m.bot{align-self:flex-start;background:var(--tint);border-bottom-left-radius:4px}
+  .m.user{align-self:flex-end;background:var(--ink);color:#fff;border-bottom-right-radius:4px}
+  .m a{color:inherit;font-weight:600}
+  .m .who{display:block;font-size:.75rem;font-weight:500;color:var(--ink-soft);margin-bottom:2px}
+  .typing{display:flex;gap:5px;align-self:flex-start;background:var(--tint);border-radius:14px;padding:.8rem .9rem}
   .typing span{width:6px;height:6px;border-radius:50%;background:var(--ink-soft);animation:blinkd 1.2s infinite}
   .typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
-  .chat-chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 12px}
-  .chip{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.05em;background:transparent;border:1.5px solid var(--ink);
-    padding:7px 12px;cursor:pointer;transition:.12s ease}
-  .chip:hover{background:var(--accent);border-color:var(--accent);color:#fff}
-  .chat-f{display:flex;gap:9px;padding:12px;border-top:var(--rule) solid var(--ink);flex-shrink:0}
-  .chat-f input{flex:1;border:1.5px solid var(--ink);background:var(--paper);padding:12px 15px;font-family:var(--f-txt);
-    font-size:.94rem;outline:none;min-width:0}
-  .chat-f input:focus{border-color:var(--accent)}
-  .chat-f button{border:var(--rule) solid var(--ink);background:var(--ink);color:var(--paper);width:46px;cursor:pointer;
-    display:grid;place-items:center;transition:.12s ease;flex-shrink:0}
-  .chat-f button:hover{background:var(--accent);border-color:var(--accent)}
+  @keyframes blinkd{0%,100%{opacity:.25}50%{opacity:1}}
+  .chat-chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 1rem .7rem}
+  .chip{font-size:.85rem;background:#fff;border:1px solid var(--ink);border-radius:999px;padding:.35rem .8rem;cursor:pointer}
+  .chip:hover{background:var(--tint)}
+  .mic-status{color:var(--ink-soft)}
+  .chat-f{display:flex;gap:8px;padding:.75rem;border-top:1px solid var(--line);flex-shrink:0}
+  .chat-f input{flex:1;border:1px solid var(--line);border-radius:8px;background:#fff;padding:.7rem .9rem;font:inherit;font-size:.95rem;outline:none;min-width:0;color:var(--ink)}
+  .chat-f input:focus{border-color:var(--ink)}
+  .chat-f button{border:none;border-radius:8px;background:var(--ink);color:#fff;width:46px;cursor:pointer;display:grid;place-items:center;flex-shrink:0}
+  .chat-f button:hover{background:#0f2a1d}
   .chat-f button:disabled{opacity:.4;cursor:not-allowed}
-  /* micro — secondaire, masque si le navigateur ne sait pas faire */
-  .chat-f button.mic{background:var(--paper);color:var(--ink)}
-  .chat-f button.mic:hover{background:var(--paper2);border-color:var(--accent);color:var(--accent)}
-  .chat-f button.mic.active{background:#D93025;border-color:#D93025;color:#fff;animation:pulseMic 1.1s ease-in-out infinite}
-  @keyframes pulseMic{0%,100%{box-shadow:0 0 0 0 rgba(217,48,37,.45)}50%{box-shadow:0 0 0 7px rgba(217,48,37,0)}}
-  .demo-notes{display:flex;flex-direction:column;gap:16px;margin-top:22px}
-  .demo-notes li{list-style:none;display:flex;gap:12px;font-size:.95rem;color:var(--ink-soft)}
-  .demo-notes .n{font-family:var(--f-mono);font-weight:700;font-size:.72rem;color:var(--accent);flex-shrink:0}
-
-  /* chat flottant */
-  .fab{position:fixed;right:22px;bottom:26px;z-index:93;width:58px;height:58px;background:var(--ink);color:var(--paper);
-    border:var(--rule) solid var(--ink);cursor:pointer;display:grid;place-items:center;box-shadow:5px 5px 0 var(--accent);transition:.15s ease}
-  .fab:hover{transform:translateY(-3px)}
-  .fab svg{width:26px;height:26px}
-  .float-panel{position:fixed;right:22px;bottom:96px;z-index:93;width:min(390px,calc(100vw - 32px));height:min(580px,calc(100svh - 140px));
-    background:var(--paper);border:var(--rule) solid var(--ink);box-shadow:8px 8px 0 var(--ink);display:flex;flex-direction:column;
-    opacity:0;transform:translateY(14px);pointer-events:none;transition:.2s ease}
-  .float-panel.open{opacity:1;transform:none;pointer-events:auto}
-  .float-panel .chat-h .x{margin-left:auto;background:none;border:none;color:var(--paper);cursor:pointer;font-size:1.2rem;line-height:1;opacity:.8}
-  .float-panel .chat-h .x:hover{opacity:1}
-  @media (max-width:560px){.float-panel{right:0;bottom:0;width:100vw;height:100svh;max-height:100svh}.fab{right:14px;bottom:14px}}
-
-  /* ---- méthode ---- */
-  .meth{margin-top:50px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:var(--rule) solid var(--ink)}
-  .meth div{padding:22px 20px;border-right:1px solid var(--ink)}
-  .meth div:last-child{border-right:none}
-  .meth .mn{font-family:var(--f-mono);font-weight:700;color:var(--accent);font-size:.72rem;letter-spacing:.12em}
-  .meth h3{font-family:var(--f-disp);font-weight:700;font-size:1.08rem;margin:8px 0 6px}
-  .meth p{font-size:.85rem;color:var(--ink-soft)}
-  @media (max-width:900px){.meth{grid-template-columns:1fr 1fr}.meth div{border-bottom:1px solid var(--ink)}}
-  @media (max-width:560px){.meth{grid-template-columns:1fr}}
-
-  /* ---- contact ---- */
-  .contact{padding:130px 44px;border-bottom:var(--rule) solid var(--ink);text-align:left}
-  .contact a.mail{display:inline-block;font-family:var(--f-disp);font-weight:900;font-size:clamp(1.3rem,4vw,3rem);
-    text-decoration:none;border-bottom:4px solid var(--accent);padding-bottom:4px;margin:26px 0 8px;word-break:break-all}
-  .contact a.mail:hover{color:var(--accent)}
-  .contact-acts{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px}
-  .contact .hint{margin-top:30px;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.1em;color:var(--ink-soft)}
-  @media (max-width:760px){.contact{padding:80px 20px}}
-
-  /* ---- colophon ---- */
-  .colophon{padding:54px 44px;display:flex;justify-content:space-between;gap:26px;flex-wrap:wrap;
-    font-family:var(--f-mono);font-size:.66rem;letter-spacing:.1em;color:var(--ink-soft)}
-  .colophon .reg{width:20px;height:20px;display:inline-block;vertical-align:middle}
-  @media (max-width:760px){.colophon{padding:40px 20px}}
-
-  /* ---- toasts ---- */
+  .chat-f button.mic{background:#fff;color:var(--ink);border:1px solid var(--line)}
+  .chat-f button.mic:hover{background:var(--tint)}
+  .chat-f button.mic.active{background:#D93025;border-color:#D93025;color:#fff}
   .toasts{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);z-index:99;display:flex;flex-direction:column;gap:8px;align-items:center}
-  .toast{background:var(--ink);color:var(--paper);font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;
-    padding:11px 18px;border:1.5px solid var(--ink);box-shadow:4px 4px 0 var(--accent);opacity:0;transform:translateY(10px);
-    transition:.25s ease}
+  .toast{background:var(--ink);color:#fff;font-size:.9rem;padding:.6rem 1.1rem;border-radius:8px;opacity:0;transform:translateY(8px);transition:.2s ease}
   .toast.on{opacity:1;transform:none}
 
-  /* ---- vitrines démos & sélecteur de mises en page ---- */
-  .layout-switcher{display:flex;gap:10px;flex-wrap:wrap;margin:28px 0 32px;justify-content:flex-start}
-  .layout-tab{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.08em;background:var(--paper);border:var(--rule) solid var(--ink);padding:11px 20px;cursor:pointer;transition:.15s ease;font-weight:700}
-  .layout-tab:hover,.layout-tab.active{background:var(--ink);color:var(--paper);box-shadow:4px 4px 0 var(--accent)}
-  
-  .layout-preview-box{background:var(--paper);border:var(--rule) solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:36px;margin-top:16px;min-height:480px;transition:all .3s ease}
-
-  /* Style 1 : Bento Grid */
-  .bento-grid{display:grid;grid-template-columns:2fr 1fr 1.2fr;gap:18px}
-  .bento-box{background:var(--paper2);border:1.5px solid var(--ink);padding:24px;border-radius:4px;display:flex;flex-direction:column;justify-content:space-between}
-  .bento-box.hero-box{grid-column:span 2;background:var(--ink);color:var(--paper)}
-  .bento-box.hero-box h3{font-family:var(--f-disp);font-size:2.2rem;line-height:1;margin-bottom:12px}
-  .bento-box.accent-box{background:var(--accent);color:#fff}
-  .bento-box.accent-box h4{font-family:var(--f-mono);font-size:.85rem;letter-spacing:.1em;margin-bottom:8px}
-
-  /* Style 2 : Éditorial Magazine */
-  .editorial-layout{display:grid;grid-template-columns:1fr var(--rule) 1.2fr;gap:36px;align-items:start}
-  .editorial-col h3{font-family:var(--f-disp);font-size:2.6rem;line-height:.95;text-transform:uppercase;margin-bottom:16px}
-  .editorial-quote{font-family:var(--f-disp);font-style:italic;font-size:1.35rem;border-left:4px solid var(--accent);padding-left:18px;margin:20px 0}
-
-  /* Style 3 : Split Screen 50/50 */
-  .split-layout{display:grid;grid-template-columns:1fr 1fr;gap:0;border:var(--rule) solid var(--ink);overflow:hidden;border-radius:4px}
-  .split-col-left{background:var(--ink);color:var(--paper);padding:40px 32px}
-  .split-col-right{background:var(--paper2);padding:40px 32px;display:flex;flex-direction:column;justify-content:center}
-
-  /* Style 4 : Minimaliste Mobile-First */
-  .minimal-layout{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
-  .minimal-card{background:var(--paper);border:1.5px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:22px 24px}
-
-  @media (max-width:900px){
-    .bento-grid,.editorial-layout,.split-layout{grid-template-columns:1fr}
-    .bento-box.hero-box{grid-column:span 1}
+  /* tablette et téléphone */
+  @media (max-width:860px){
+    :root{--gutter:3.5rem}
+    .mark{font-size:1.9rem}
+    .sec{column-gap:1.25rem}
   }
-
-  @media (prefers-reduced-motion:reduce){
-    .fade-up{opacity:1;transform:none}
-    .h1 .ch{transform:none}
-    .ticker-track{animation:none}
+  @media (max-width:640px){
+    .sec{display:block;margin-top:4.5rem}
+    .mark{display:block;text-align:left;font-size:1.6rem;margin-bottom:.3rem}
+    .sec.hero{padding-top:3rem}
+    .pair{grid-template-columns:1fr;gap:1.75rem}
+    .motto{display:none}
+    .nav{gap:1rem}
+    .nav .hide-s{display:none}
+    .scene{padding:1.1rem}
+    .bub{max-width:90%}
   }
-  /* Présentations globales : un seul contenu, six habillages. */
-  #vitrines{scroll-margin-top:86px}
-  #vitrines .band-head{grid-template-columns:1fr;gap:24px}
-  .presentation-picker{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:28px 0}
-  .presentation-choice{background:var(--paper);color:var(--ink);border:2px solid var(--ink);padding:20px;text-align:left;cursor:pointer;min-width:0;font-size:1rem;transition:transform .2s,box-shadow .2s}
-  .presentation-choice span{display:block}
-  .presentation-choice .style-mark{font-family:var(--f-disp);font-size:1.8rem;margin-bottom:12px;color:var(--accent)}
-  .presentation-choice[aria-pressed="true"]{box-shadow:5px 5px 0 var(--accent);background:var(--paper2)}
-  .presentation-choice:focus-visible{outline:3px solid var(--accent);outline-offset:5px}
-  .presentation-controls{display:flex;flex-wrap:wrap;align-items:center;gap:18px}
-  .style-emoji{display:none}
-  body[data-presentation="cards"] .spreads,body[data-presentation="friendly"] .spreads{padding:28px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;background:var(--paper2)}
-  body[data-presentation="cards"] .spread,body[data-presentation="friendly"] .spread{display:flex;flex-direction:column;gap:24px;padding:28px;min-height:0;border:1px solid var(--ink);border-radius:20px}
-  body[data-presentation="cards"] .gutter,body[data-presentation="friendly"] .gutter{display:none}
-  body[data-presentation="cards"] .pg-title,body[data-presentation="friendly"] .pg-title{font-size:clamp(2rem,3vw,3rem);overflow-wrap:anywhere}
-  body[data-presentation="cards"] .band,body[data-presentation="friendly"] .band{margin:24px;padding:44px 28px;border:1px solid var(--ink);border-radius:20px;background:var(--paper)}
-  body[data-presentation="cards"] .hero{min-height:auto;padding-top:125px;align-items:center;text-align:center;background:var(--paper2)}
-  body[data-presentation="cards"] .hero-top,body[data-presentation="cards"] .toc{width:100%}
-  body[data-presentation="cards"] .hero-ctas{justify-content:center}
-  body[data-presentation="cards"] .chat-card,body[data-presentation="friendly"] .chat-card{border-radius:18px;overflow:hidden;box-shadow:5px 5px 0 var(--accent)}
-  body[data-presentation="minimal"] .hero{align-items:center;text-align:center;min-height:auto;padding-top:125px}
-  body[data-presentation="minimal"] .hero-top,body[data-presentation="minimal"] .toc{width:100%;max-width:900px}
-  body[data-presentation="minimal"] .hero-ctas{justify-content:center}
-  body[data-presentation="minimal"] .spread,body[data-presentation="minimal"] .band{max-width:940px;margin:auto;padding:60px 28px;min-height:0}
-  body[data-presentation="minimal"] .spread,body[data-presentation="minimal"] .band-head,body[data-presentation="minimal"] .demo-grid{grid-template-columns:1fr;gap:28px}
-  body[data-presentation="minimal"] .gutter{display:none}
-  body[data-presentation="minimal"] .pg-visual{max-width:280px;margin-top:16px}
-  body[data-presentation="minimal"] .h1,body[data-presentation="minimal"] .pg-title,body[data-presentation="minimal"] .band-title{font-family:var(--f-txt);text-transform:none;letter-spacing:normal}
-  body[data-presentation="minimal"] .h1{font-size:clamp(2.2rem,6vw,4.4rem)}
-  /* Couleurs de lecture propres à chaque présentation, indépendantes de la couleur d'accent. */
-  body[data-presentation="magazine"]{--ink:#163c2d;--ink-soft:#365447;--reading-title:#163c2d}
-  body[data-presentation="cards"]{--ink:#493064;--ink-soft:#5e4771;--reading-title:#493064}
-  body[data-presentation="minimal"]{--ink:#193e68;--ink-soft:#365573;--reading-title:#193e68}
-  body[data-presentation="friendly"]{--ink:#803616;--ink-soft:#754b35;--reading-title:#803616}
-  body[data-presentation="bistrot"]{--paper:#FBF4E6;--paper2:#F1E4CC;--ink:#3A2216;--ink-soft:#6B4A38;--accent:#3F6B34;--reading-title:#A3281D}
-  body[data-presentation="living"]{--ink:#68283f;--ink-soft:#704553;--reading-title:#68283f}
-  body[data-presentation="studio"]{--paper:#101f19;--paper2:#1c3227;--ink:#e9f5ed;--ink-soft:#bdcebf;--reading-title:#bde6ff}
-  body[data-presentation] :is(.pg-title,.band-title){color:var(--reading-title)}
-  body[data-presentation="studio"] .masthead{background:#101f19f5}
-  body[data-presentation="studio"] .hero{background:radial-gradient(ellipse at 85% 15%,var(--paper2),transparent 65%);min-height:auto;padding-top:130px}
-  body[data-presentation="studio"] .h1,body[data-presentation="studio"] .pg-title,body[data-presentation="studio"] .band-title{font-family:var(--f-txt)}
-  body[data-presentation="studio"] .spread{grid-template-columns:1fr 1.4fr;border-color:var(--ink-soft)}
-  body[data-presentation="studio"] .gutter{display:none}
-  body[data-presentation="studio"] .pg-left{padding:28px;background:var(--paper2);border-radius:18px}
-  body[data-presentation="studio"] .chat-card{box-shadow:0 0 28px var(--paper2);border-radius:16px;overflow:hidden}
-  body[data-presentation="studio"] .layout-tab{color:var(--ink)}
-  body[data-presentation="friendly"] .hero{min-height:auto;padding-top:125px;background:var(--paper2)}
-  body[data-presentation="friendly"] .btn,body[data-presentation="friendly"] .presentation-choice{border-radius:22px}
-  body[data-presentation="friendly"] .style-emoji{display:block;font-size:2rem;margin-bottom:14px}
-  body[data-presentation="living"] .spread:nth-child(even){grid-template-columns:1.15fr var(--rule) 1fr}
-  body[data-presentation="living"] .spread:nth-child(even) .pg-left{grid-column:3;grid-row:1}
-  body[data-presentation="living"] .spread:nth-child(even) .gutter{grid-column:2;grid-row:1}
-  body[data-presentation="living"] .spread:nth-child(even) .pg-right{grid-column:1;grid-row:1}
-  body[data-presentation="living"] .band-head{grid-template-columns:1fr;gap:28px}
-  .pg-title,.band-title{overflow-wrap:anywhere}
-  body.presentation-motion .presentation-choice{animation:style-enter .4s both}
-  body.presentation-motion .presentation-choice:nth-child(2n){animation-delay:.07s}
-  body.presentation-motion .presentation-choice:nth-child(3n){animation-delay:.14s}
-  body[data-presentation="studio"].presentation-motion .pg-left{animation:style-enter .6s both}
-  body[data-presentation="friendly"].presentation-motion .style-emoji{animation:style-wave .7s 2}
-  body[data-presentation="living"].presentation-motion .pg-left{animation:style-enter .65s both}
-  @keyframes style-enter{from{transform:translateY(18px)}to{transform:translateY(0)}}
-  @keyframes style-wave{0%,100%{transform:rotate(0)}35%{transform:rotate(6deg)}70%{transform:rotate(-6deg)}}
-  @media(hover:hover){.presentation-choice:hover{transform:translateY(-4px)}body:is([data-presentation="studio"],[data-presentation="friendly"],[data-presentation="living"]) .btn:hover{transform:translateY(-3px)}}
-  @media(max-width:1050px){body[data-presentation="cards"] .spreads,body[data-presentation="friendly"] .spreads{grid-template-columns:1fr}.presentation-picker{grid-template-columns:repeat(2,minmax(0,1fr))}}
-  @media(max-width:760px){
-    body[data-presentation] .spread{display:flex;flex-direction:column;gap:24px;min-height:0}
-    body[data-presentation] .gutter{display:none}
-    body[data-presentation="cards"] .spreads,body[data-presentation="friendly"] .spreads{padding:16px}
-    body[data-presentation="cards"] .band,body[data-presentation="friendly"] .band{margin:16px;padding:32px 18px}
-    .presentation-choice{padding:16px 12px}
-  }
-  @media(prefers-reduced-motion:reduce){body.presentation-motion *,body[data-presentation] .btn,.presentation-choice{animation:none!important;transition:none!important}}
+  @media (max-width:560px){.float-panel{right:0;bottom:0;width:100vw;height:100svh;border-radius:0}.fab{right:14px;bottom:14px}}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.float-panel,.toast{transition:none}.typing span{animation:none}}
 </style>
   <script data-goatcounter="https://mpsolutionsia.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
-<body data-presentation="magazine">
-<div class="grain"></div>
-<canvas id="riso"></canvas>
+<body>
 
-<header class="masthead">
-  <div class="mast-inner">
-    <a class="brandmark" href="#cover">MPSOLUTIONS<b>IA</b></a>
-    <nav class="mast-nav">
-      <a href="#chapitres" data-i18n="nav.chapters">SERVICES</a>
-      <a href="#demo" data-i18n="nav.demo">DÉMO</a>
-      <a href="#methode" data-i18n="nav.method">MÉTHODE</a>
-      <a href="#contact" data-i18n="nav.contact">CONTACT</a>
-    </nav>
-    <div class="mast-right">
-      <button class="flag" id="langBtn" aria-label="Switch to English" title="English">🇬🇧</button>
-      <button class="demo-btn" id="navDemo" data-i18n="nav.openDemo">OUVRIR LA DÉMO</button>
+<header class="top">
+  <div class="frame">
+    <div>
+      <a class="brand" href="/">MP Solutions IA</a>
+      <p class="motto" data-i18n="motto">Écouter, comprendre, servir — en toute transparence.</p>
     </div>
+    <nav class="nav" aria-label="Menu">
+      <button class="linkbtn open-chat hide-s" type="button" data-i18n="nav.try">Essayer l'assistant</button>
+      <a href="#contact" data-i18n="nav.contact">Me contacter</a>
+      <button class="lang" id="langBtn" type="button" lang="en">English</button>
+    </nav>
   </div>
 </header>
 
 <main>
 
-<!-- ============ COUVERTURE ============ -->
-<section class="hero" id="cover" data-page="p.01 — COUVERTURE" data-page-en="p.01 — COVER">
-  <div class="hero-top">
-    <span data-i18n="hero.edition">ASSISTANTS IA POUR LES TPE–PME D'ARIÈGE</span>
-    <span data-i18n="hero.place">ARTIGAT (09)</span>
-  </div>
-  <h1 class="h1" id="heroTitle" aria-label="MPSOLUTIONSIA">
-    <span class="line" data-line="MPSOLUTIONS"></span>
-    <span class="line outline" data-line="IA."></span>
-  </h1>
-  <p class="hero-sub fade-up" style="--fd:.55s" data-i18n-html="hero.sub"><strong>Combien de demandes perdez-vous pendant que vous travaillez ou lorsque votre entreprise est fermée ?</strong> Votre assistant IA répond 24h/24 aux premières questions, recueille les besoins et vous transmet les demandes utiles. <strong>Vous gagnez du temps et donnez à davantage de visiteurs une raison de devenir clients.</strong> Une solution conçue pour votre métier, sans commission sur votre chiffre d’affaires.</p>
-  <div class="hero-ctas fade-up" style="--fd:.75s">
-    <a class="btn btn-ink" href="/diagnostic.html" data-i18n="hero.diag">⚡ DIAGNOSTIC — 60 SECONDES</a>
-    <a class="btn btn-ghost" href="#contact" data-i18n="hero.write">ME CONTACTER</a>
-  </div>
-</section>
-
-<!-- ============ CHAPITRES ============ -->
-<div class="spreads" id="chapitres" data-page="p.02 — CHAPITRES" data-page-en="p.02 — CHAPTERS">
-
-  <!-- CHAPITRE 01 — LE SITE -->
-  <section class="spread" data-title="CHAPITRES">
-    <div class="pg-left">
-      <h2 class="pg-title" data-i18n="s1.title">Pas encore de site ?</h2>
-      <div class="pg-visual">
-        <svg viewBox="0 0 440 300" fill="none" aria-hidden="true">
-          <rect class="draw" x="14" y="10" width="412" height="280" stroke="var(--ink)" stroke-width="2.5" pathLength="1"/>
-          <line class="draw" x1="14" y1="52" x2="426" y2="52" stroke="var(--ink)" stroke-width="2" pathLength="1"/>
-          <rect class="draw" x="30" y="24" width="86" height="14" stroke="var(--ink)" stroke-width="2" pathLength="1"/>
-          <circle class="pop d1" cx="398" cy="31" r="9" fill="var(--accent)"/>
-          <line class="draw" x1="34" y1="90" x2="230" y2="90" stroke="var(--ink)" stroke-width="5" pathLength="1"/>
-          <line class="draw" x1="34" y1="116" x2="196" y2="116" stroke="var(--ink)" stroke-width="5" pathLength="1"/>
-          <line class="draw" x1="34" y1="142" x2="214" y2="142" stroke="var(--accent)" stroke-width="5" pathLength="1"/>
-          <rect class="draw" x="252" y="78" width="158" height="96" stroke="var(--ink)" stroke-width="2" pathLength="1"/>
-          <line class="draw" x1="252" y1="78" x2="410" y2="174" stroke="var(--ink)" stroke-width="1.5" pathLength="1"/>
-          <line class="draw" x1="410" y1="78" x2="252" y2="174" stroke="var(--ink)" stroke-width="1.5" pathLength="1"/>
-          <line class="draw" x1="34" y1="196" x2="130" y2="196" stroke="var(--ink)" stroke-width="3" pathLength="1"/>
-          <line class="draw" x1="34" y1="214" x2="112" y2="214" stroke="var(--ink)" stroke-width="3" pathLength="1"/>
-          <rect class="pop d3" x="330" y="222" width="80" height="52" rx="14" fill="var(--ink)"/>
-          <rect class="pop d4" x="342" y="234" width="44" height="10" rx="5" fill="var(--paper)"/>
-          <circle class="pop d4 blink-dot" cx="398" cy="262" r="6" fill="var(--accent)"/>
-        </svg>
-      </div>
-    </div>
-    <div class="gutter"></div>
-    <div class="pg-right">
-      <div class="kicker" data-i18n="s1.kicker">CRÉATION DE SITE</div>
-      <p class="drop" data-i18n="s1.p1">Je crée votre site, pensé dès le départ pour accueillir votre assistant IA. Pas besoin de chercher un prestataire à part.</p>
-      <p data-i18n="s1.p2">Un camping à Artigat, une table au Fossat, un atelier en vallée : chaque entreprise a son histoire. Je commence donc par une visite sur place, pour comprendre la vôtre. Ensuite seulement, je construis un site à votre image, pas un modèle générique.</p>
-      <ul class="specs">
-        <li><span class="i">01</span><span data-i18n="s1.l1">Design sur mesure, rapide et lisible</span></li>
-        <li><span class="i">02</span><span data-i18n="s1.l2">Pensé pour le référencement local</span></li>
-        <li><span class="i">03</span><span data-i18n="s1.l3">L'assistant IA intégré dès la conception</span></li>
-        <li><span class="i">04</span><span data-i18n="s1.l4">Un interlocuteur humain après — pas un ticket</span></li>
-      </ul>
-      <p class="pull" data-i18n="s1.pull">Un site, c'est votre devanture ouverte 24 heures sur 24.</p>
-    </div>
-  </section>
-
-  <!-- CHAPITRE 02 — L'AGENT -->
-  <section class="spread" data-title="CHAPITRES">
-    <div class="pg-left">
-      <h2 class="pg-title" data-i18n="s2.title">Votre assistant</h2>
-      <div class="pg-visual">
-        <svg viewBox="0 0 440 300" fill="none" aria-hidden="true">
-          <rect class="pop" x="20" y="26" width="210" height="58" rx="14" stroke="var(--ink)" stroke-width="2.5"/>
-          <line class="pop d1" x1="38" y1="48" x2="180" y2="48" stroke="var(--ink)" stroke-width="3" pathLength="1"/>
-          <line class="pop d1" x1="38" y1="64" x2="140" y2="64" stroke="var(--ink)" stroke-width="3" pathLength="1"/>
-          <rect class="pop d2" x="210" y="106" width="210" height="58" rx="14" fill="var(--ink)"/>
-          <line class="pop d2" x1="230" y1="128" x2="380" y2="128" stroke="var(--paper)" stroke-width="3" pathLength="1"/>
-          <line class="pop d2" x1="230" y1="144" x2="330" y2="144" stroke="var(--paper)" stroke-width="3" pathLength="1"/>
-          <rect class="pop d3" x="20" y="186" width="130" height="46" rx="12" stroke="var(--accent)" stroke-width="2.5"/>
-          <circle class="pop d3 blink-dot" cx="44" cy="209" r="5" fill="var(--accent)"/>
-          <circle class="pop d3 blink-dot" cx="62" cy="209" r="5" fill="var(--accent)"/>
-          <circle class="pop d3 blink-dot" cx="80" cy="209" r="5" fill="var(--accent)"/>
-          <g class="pop d4">
-            <circle cx="392" cy="226" r="34" stroke="var(--ink)" stroke-width="2.5"/>
-            <line class="spin" x1="392" y1="226" x2="392" y2="200" stroke="var(--accent)" stroke-width="3"/>
-            <line x1="392" y1="226" x2="410" y2="234" stroke="var(--ink)" stroke-width="2"/>
-            <text x="392" y="276" text-anchor="middle" font-family="Space Mono, monospace" font-size="11" fill="var(--ink-soft)" letter-spacing="1">24H/24</text>
-          </g>
-        </svg>
-      </div>
-    </div>
-    <div class="gutter"></div>
-    <div class="pg-right">
-      <div class="kicker" data-i18n="s2.kicker">ASSISTANT IA 24H/24</div>
-      <p class="drop" data-i18n="s2.p1">Vous faites déjà connaître votre activité. Donnez aux visiteurs de votre site les réponses qui les aident à vous contacter. Quand vous êtes sur un chantier, en rendez-vous ou fermé, votre chatbot peut accueillir leur demande.</p>
-      <p data-i18n="s2.p2">« Intervenez-vous dans ma commune ? », « Acceptez-vous les animaux ? », « Faites-vous des commandes pour un anniversaire ? » Une question peut bloquer une demande. Votre chatbot répond à partir de vos informations et aide à préparer la suite. S'il ne sait pas, il oriente vers vous. Vous gardez la main sur vos devis et vos réservations.</p>
-      <ul class="specs">
-        <li><span class="i">01</span><span data-i18n="s2.l1">Accueillir les demandes même quand vous êtes occupé ou fermé</span></li>
-        <li><span class="i">02</span><span data-i18n="s2.l2">Lever les hésitations avec des réponses sur vos prestations</span></li>
-        <li><span class="i">03</span><span data-i18n="s2.l3">Préparer des demandes plus précises et limiter les questions répétitives</span></li>
-      </ul>
-      <p class="pull" data-i18n="s2.pull">Vous développez vos ventes. Je ne prends aucun pourcentage dessus. Vous payez l'installation, puis l'abonnement mensuel pour la maintenance et le suivi de votre chatbot.</p>
-    </div>
-  </section>
-
-  <!-- CHAPITRE 03 — LA REPRISE -->
-  <section class="spread" data-title="CHAPITRES">
-    <div class="pg-left">
-      <h2 class="pg-title" data-i18n="s3.title">Déjà un site ?</h2>
-      <div class="pg-visual">
-        <svg viewBox="0 0 440 360" fill="none" aria-hidden="true">
-          <g>
-            <rect class="draw" x="60" y="30" width="300" height="210" stroke="var(--ink)" stroke-width="2.5" pathLength="1"/>
-            <line class="draw" x1="60" y1="64" x2="360" y2="64" stroke="var(--ink)" stroke-width="2" pathLength="1"/>
-            <line class="draw" x1="84" y1="104" x2="240" y2="104" stroke="var(--ink)" stroke-width="5" pathLength="1"/>
-            <line class="draw" x1="84" y1="130" x2="210" y2="130" stroke="var(--ink)" stroke-width="5" pathLength="1"/>
-            <line class="draw" x1="84" y1="176" x2="150" y2="176" stroke="var(--ink)" stroke-width="3" pathLength="1"/>
-          </g>
-          <g>
-            <rect class="pop d2" x="312" y="272" width="88" height="66" rx="16" fill="var(--accent)"/>
-            <rect class="pop d3" x="324" y="286" width="48" height="9" rx="4.5" fill="#fff"/>
-            <circle class="pop d3 blink-dot" cx="388" cy="324" r="5" fill="#fff"/>
-          </g>
-          <g font-family="Space Mono, monospace" font-size="11" letter-spacing="1">
-            <rect class="pop d3" x="24" y="272" width="102" height="28" stroke="var(--ink)" stroke-width="2"/>
-            <text class="pop d3" x="75" y="290" text-anchor="middle" fill="var(--ink)">WordPress</text>
-            <rect class="pop d4" x="24" y="310" width="60" height="28" stroke="var(--ink)" stroke-width="2"/>
-            <text class="pop d4" x="54" y="328" text-anchor="middle" fill="var(--ink)">Wix</text>
-            <rect class="pop d4" x="100" y="310" width="86" height="28" stroke="var(--ink)" stroke-width="2"/>
-            <text class="pop d4" x="143" y="328" text-anchor="middle" fill="var(--ink)">Shopify</text>
-          </g>
-        </svg>
-      </div>
-    </div>
-    <div class="gutter"></div>
-    <div class="pg-right">
-      <div class="kicker" data-i18n="s3.kicker">INSTALLATION SUR VOTRE SITE</div>
-      <p class="drop" data-i18n="s3.p1">Votre site existe déjà ? On le fait parler. Pas besoin de tout refaire : j'installe l'agent sur votre site actuel — WordPress, Wix, Shopify ou fait maison — sans toucher au reste, et sans réécrire vos contenus.</p>
-      <p data-i18n="s3.p2">Vos visiteurs savent toujours qu'ils parlent à un assistant IA — jamais un trompe-l'œil, obligation légale respectée dès la conception. Les données sensibles tapées par erreur sont masquées avant d'être conservées, et la conformité RGPD est là dès la mise en service.</p>
-      <ul class="specs">
-        <li><span class="i">01</span><span data-i18n="s3.l1">Compatible avec votre site tel qu'il est</span></li>
-        <li><span class="i">02</span><span data-i18n="s3.l2">Installation sans toucher au reste du site</span></li>
-        <li><span class="i">03</span><span data-i18n="s3.l3">Transparence : les visiteurs savent qu'ils parlent à une IA</span></li>
-        <li><span class="i">04</span><span data-i18n="s3.l4">RGPD et sécurisation dès la mise en service</span></li>
-      </ul>
-      <p class="pull" data-i18n="s3.pull">Pas d'usine à gaz : une installation propre, pensée pour votre métier.</p>
-    </div>
-  </section>
-</div>
-
-<!-- ============ DÉMONSTRATION ============ -->
-<section class="band" id="demo" data-page="p.05 — DÉMONSTRATION" data-page-en="p.05 — DEMO">
-  <div class="band-head">
-    <div>
-      <div class="kicker" data-i18n="demo.kicker">ESSAYEZ, ÇA RÉPOND</div>
-      <h2 class="band-title" data-i18n="demo.title">La démonstration</h2>
-    </div>
-    <div class="band-copy" data-i18n-html="demo.copy"><strong>Voyez ce qu'un assistant peut apporter à votre activité.</strong> Posez vos questions dans la bulle. Chez vous, il sera adapté aux questions de vos propres clients.</div>
-  </div>
-  <div class="demo-grid">
-    <div>
-      <div class="chat-card">
-        <div class="chat-h"><span class="st"><i></i><span data-i18n="chat.status">MP·AGENT — EN LIGNE</span></span></div>
-        <div class="demo-open-body">
-          <div class="m bot"><span class="who">MP·AGENT</span><span data-i18n="demo.cardMsg">Quel est votre métier ? Je vais vous donner deux exemples adaptés, puis estimer avec vos chiffres ce que les demandes récupérées pourraient représenter.</span></div>
-          <button class="btn btn-ink" id="demoOpen"><span data-i18n="demo.open">OUVRIR L'AGENT</span> →</button>
-        </div>
-      </div>
-      <ul class="demo-notes">
-        <li><span class="n">01</span><span data-i18n="demo.n1">Il adapte les exemples à votre métier et à vos demandes réelles.</span></li>
-        <li><span class="n">02</span><span data-i18n="demo.n2">Il utilise uniquement les chiffres que vous lui donnez.</span></li>
-        <li><span class="n">03</span><span data-i18n="demo.n3">Il affiche le chiffre d'affaires potentiel, par mois et par an.</span></li>
-      </ul>
-    </div>
-    <div class="band-copy" style="align-self:end" >
-      <p data-i18n="demo.side">Les estimations utilisent uniquement vos chiffres. Elles ne garantissent pas une vente, et les charges de votre activité restent à déduire.</p>
+<section class="frame sec hero" aria-labelledby="h-hero">
+  <div class="body">
+    <h1 id="h-hero" data-i18n="hero.h1">Votre site répond à vos clients quand vous êtes occupé.</h1>
+    <p class="lead" data-i18n="hero.lead">J'installe sur le site des artisans, commerçants et petites entreprises d'Ariège un assistant qui répond aux questions des clients, avec vos informations. S'il ne sait pas, il vous transmet la demande.</p>
+    <p class="me" data-i18n="hero.me">Je m'appelle Marc-Paul Dassens. Je travaille seul, depuis Artigat, et je me déplace chez vous si vous le voulez.</p>
+    <div class="actions">
+      <a class="btn btn-main" href="/diagnostic.html" data-i18n="hero.diag">Faire le diagnostic en 1 minute</a>
+      <button class="btn btn-alt open-chat" type="button" data-i18n="hero.try">Essayer l'assistant</button>
     </div>
   </div>
 </section>
 
-<!-- ============ LA MÉTHODE ============ -->
-<section class="band" id="methode" data-page="p.06 — MÉTHODE" data-page-en="p.06 — METHOD">
-  <div class="band-head">
-    <div>
-      <div class="kicker" data-i18n="met.kicker">4 ÉTAPES</div>
-      <h2 class="band-title" data-i18n="met.title">Comment ça se passe</h2>
+<section class="frame sec" id="constat" aria-labelledby="h-vois">
+  <div class="mark" aria-hidden="true">&gt;&gt;</div>
+  <div class="body">
+    <h2 id="h-vois" data-i18n="vois.h2">Ce que je vois</h2>
+    <p data-i18n="vois.p1">Sur un chantier, en cuisine ou derrière le comptoir, vous ne pouvez pas décrocher à chaque fois. Le soir et le dimanche non plus. Pendant ce temps, des gens passent sur votre site avec une question simple.</p>
+    <p data-i18n="vois.p2">Sans réponse, certains rappellent. D'autres vont voir ailleurs.</p>
+  </div>
+</section>
+
+<section class="frame sec" id="proposition" aria-labelledby="h-prop">
+  <div class="mark" aria-hidden="true">++</div>
+  <div class="body">
+    <h2 id="h-prop" data-i18n="prop.h2">Ce que je propose</h2>
+    <p data-i18n="prop.p1">Un assistant installé sur votre site. Il répond avec vos informations à vous : vos horaires, vos services, votre zone, votre façon de parler.</p>
+
+    <figure class="scene">
+      <figcaption class="scene-cap" data-i18n="scene.cap">Par exemple, chez un électricien, un mardi à 21 h 40 :</figcaption>
+      <p class="bub visitor" data-i18n="scene.q">Bonsoir, vous intervenez à Saverdun ? J'ai une prise qui ne marche plus.</p>
+      <p class="bub bot" data-i18n="scene.a">Bonsoir ! Oui, Saverdun fait partie de la zone d'intervention. Laissez-moi votre nom et votre numéro : je transmets votre demande, et on vous rappelle.</p>
+      <p class="scene-after" data-i18n="scene.after">Le lendemain matin, l'électricien trouve la demande dans sa boîte mail, avec le nom et le numéro.</p>
+    </figure>
+
+    <div class="pair block">
+      <div>
+        <h3 data-i18n="case.yes.h">Vous avez déjà un site</h3>
+        <p data-i18n="case.yes.p">J'installe l'assistant dessus, sans toucher au reste : WordPress, Wix, Shopify ou site fait maison.</p>
+      </div>
+      <div>
+        <h3 data-i18n="case.no.h">Vous n'avez pas de site</h3>
+        <p data-i18n="case.no.p">Je vous en crée un simple, à votre image, avec l'assistant dedans.</p>
+      </div>
     </div>
-    <div class="band-copy" data-i18n-html="met.copy">Le prix dépend de votre activité : pas de tarif tout fait — <strong>nous en discutons autour d'un café</strong>, et je vous fais une proposition claire.</div>
-  </div>
-  <div class="meth">
-    <div><div class="mn">ÉTAPE 01</div><h3 data-i18n="met.m1t">On échange</h3><p data-i18n="met.m1p">Visite sur place si vous le voulez : votre activité, vos questions fréquentes, votre ton, vos clients.</p></div>
-    <div><div class="mn">ÉTAPE 02</div><h3 data-i18n="met.m2t">Je construis</h3><p data-i18n="met.m2p">L'agent est bâti à votre image — pas un modèle générique. Site neuf si besoin.</p></div>
-    <div><div class="mn">ÉTAPE 03</div><h3 data-i18n="met.m3t">Mise en ligne</h3><p data-i18n="met.m3p">Installation sur votre site, tests ensemble, transparence RGPD dès le premier jour.</p></div>
-    <div><div class="mn">ÉTAPE 04</div><h3 data-i18n="met.m4t">Suivi mensuel</h3><p data-i18n="met.m4p">Ajustements, mises à jour, évolutions. Un interlocuteur humain — pas un ticket.</p></div>
+
+    <div class="pair block">
+      <div>
+        <h3 data-i18n="does.h">Ce qu'il fait</h3>
+        <ul>
+          <li data-i18n="does.1">Il répond aux questions qu'on vous pose tout le temps.</li>
+          <li data-i18n="does.2">Il note le besoin, le nom et le numéro.</li>
+          <li data-i18n="does.3">Il vous envoie la demande par email.</li>
+        </ul>
+      </div>
+      <div class="no">
+        <h3 data-i18n="dont.h">Ce qu'il ne fait pas</h3>
+        <ul>
+          <li data-i18n="dont.1">Il n'invente ni prix, ni disponibilité.</li>
+          <li data-i18n="dont.2">Il ne confirme pas un devis ou une réservation à votre place.</li>
+          <li data-i18n="dont.3">Il ne se fait pas passer pour un humain : vos visiteurs savent qu'ils parlent à une IA.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3 data-i18n="steps.h">Comment ça se passe</h3>
+      <ol class="steps">
+        <li data-i18n="steps.1">On se voit chez vous, si vous voulez. Vous me parlez de votre métier et des questions qu'on vous pose.</li>
+        <li data-i18n="steps.2">Je prépare l'assistant avec vos informations.</li>
+        <li data-i18n="steps.3">On le teste ensemble, puis je le mets en ligne.</li>
+        <li data-i18n="steps.4">Ensuite, je m'en occupe chaque mois : réglages, mises à jour, nouvelles questions.</li>
+      </ol>
+    </div>
+
+    <div class="block">
+      <h3 data-i18n="price.h">Le prix</h3>
+      <p data-i18n="price.p">Il dépend de votre activité. On en parle autour d'un café et je vous fais une proposition claire : l'installation, puis un abonnement mensuel. Je ne prends aucune commission sur vos ventes.</p>
+      <p class="small" data-i18n="price.diag">Pour vous faire une idée, le <a href="/diagnostic.html">diagnostic</a> estime avec vos propres chiffres ce que les demandes récupérées peuvent représenter.</p>
+    </div>
   </div>
 </section>
 
-<!-- ============ CONTACT ============ -->
-<section class="contact" id="contact" data-page="p.07 — CONTACT" data-page-en="p.07 — CONTACT">
-  <div class="kicker" data-i18n="ct.kicker">ON EN PARLE ?</div>
-  <h2 class="band-title" data-i18n="ct.title">Écrivez-moi</h2>
-  <a class="mail" href="mailto:contact@mpsolutionsia.fr">contact@mpsolutionsia.fr</a>
-  <div class="contact-acts">
-    <button class="btn btn-ink" id="copyMail" data-i18n="ct.copy">COPIER L'ADRESSE</button>
-    <a class="btn btn-ghost" href="mailto:contact@mpsolutionsia.fr?subject=Demande%20de%20devis%20-%20MPSOLUTIONSIA" data-i18n="ct.devis">DEMANDER UN DEVIS</a>
+<section class="frame sec" id="contact" aria-labelledby="h-contact">
+  <div class="mark" aria-hidden="true">-&gt;</div>
+  <div class="body">
+    <h2 id="h-contact" data-i18n="ct.h2">On en parle ?</h2>
+    <p data-i18n="ct.p">Écrivez-moi. C'est moi qui lis vos messages et qui vous réponds.</p>
+    <a class="mail" href="mailto:contact@mpsolutionsia.fr">contact@mpsolutionsia.fr</a>
+    <div class="actions">
+      <a class="btn btn-main" href="mailto:contact@mpsolutionsia.fr?subject=Prise%20de%20contact%20-%20MP%20Solutions%20IA" data-i18n="ct.write">Écrire un email</a>
+      <button class="btn btn-alt" id="copyMail" type="button" data-i18n="ct.copy">Copier l'adresse</button>
+    </div>
+    <p class="sign"><strong>Marc-Paul Dassens</strong><span data-i18n="ct.sign">MP Solutions IA, Artigat (Ariège)</span></p>
   </div>
-  <p class="hint" data-i18n="ct.hint">MPSOLUTIONSIA — ARTIGAT (09130) · RÉPONSE RAPIDE, PAR UN HUMAIN</p>
 </section>
 
-<!-- ============ COLOPHON ============ -->
-<footer class="colophon" data-page="FIN — COLOPHON" data-page-en="END — COLOPHON">
-  <div>
-    <span data-i18n="col.tagline">MP Solutions IA — Solutions d'intelligence artificielle conçues en Ariège</span><br>
-    <a href="/mentions-legales.html" data-i18n="col.legal">Mentions légales</a> · <a href="/confidentialite.html" data-i18n="col.privacy">Politique de confidentialité</a>
-  </div>
-  <div style="text-align:right">
-    MPSOLUTIONSIA — Marc-Paul Dassens EI — SIRET 108 354 739 00014<br>
-    <span data-i18n="col.status">Micro-entreprise · TVA non applicable, article 293 B du Code général des impôts</span>
-  </div>
-</footer>
 </main>
 
-<!-- chat flottant -->
-<button class="fab" id="fab" aria-label="Ouvrir le chat" aria-expanded="false">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+<footer>
+  <div class="frame">
+    <nav aria-label="Informations légales">
+      <a href="/mentions-legales.html" data-i18n="ft.legal">Mentions légales</a>
+      <a href="/confidentialite.html" data-i18n="ft.privacy">Politique de confidentialité</a>
+    </nav>
+    <p data-i18n="ft.id">Marc-Paul Dassens EI, SIRET 108 354 739 00014. TVA non applicable, article 293 B du CGI.</p>
+  </div>
+</footer>
+
+<!-- bulle de chat : la même que chez les clients -->
+<button class="fab" id="fab" type="button" aria-label="Ouvrir l'assistant" aria-expanded="false" aria-controls="floatPanel">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
 </button>
-<div class="float-panel" id="floatPanel" role="dialog" aria-label="Agent MPSOLUTIONSIA">
+<div class="float-panel" id="floatPanel" role="dialog" aria-label="Assistant de démonstration">
   <div class="chat-h">
-    <span class="st"><i></i><span data-i18n="chat.status">MP·AGENT — EN LIGNE</span></span>
-    <button class="x" id="floatClose" aria-label="Fermer le chat">×</button>
+    <span class="st"><i></i><span data-i18n="chat.status">Assistant de démonstration</span></span>
+    <button class="x" id="floatClose" type="button" aria-label="Fermer">×</button>
   </div>
   <div id="floatChatMount" style="display:flex;flex-direction:column;flex:1;min-height:0"></div>
 </div>
-
-<div class="toasts" id="toasts"></div>
+<div class="toasts" id="toasts" aria-live="polite"></div>
 
 <script>
-/* ============================================================
-   MPSOLUTIONSIA — monographie interactive
-   ============================================================ */
 (function(){
 "use strict";
-var trailColor='#2E9E5B';
 
-/* ---------- i18n ---------- */
-var I18N={
-fr:{
- "nav.chapters":"SERVICES","nav.demo":"DÉMO","nav.method":"MÉTHODE","nav.contact":"CONTACT",
- "nav.openDemo":"OUVRIR LA DÉMO",
- "hero.edition":"ASSISTANTS IA POUR LES TPE–PME D'ARIÈGE","hero.place":"ARTIGAT (09)",
- "hero.sub":"<strong>Combien de demandes perdez-vous pendant que vous travaillez ou lorsque votre entreprise est fermée ?</strong> Votre assistant IA répond 24h/24 aux premières questions, recueille les besoins et vous transmet les demandes utiles. <strong>Vous gagnez du temps et donnez à davantage de visiteurs une raison de devenir clients.</strong> Une solution conçue pour votre métier, sans commission sur votre chiffre d’affaires.",
- "hero.diag":"⚡ DIAGNOSTIC — 60 SECONDES","hero.write":"ME CONTACTER",
- "s1.title":"Pas encore de site ?","s1.kicker":"CRÉATION DE SITE",
- "s1.p1":"Je crée votre site, pensé dès le départ pour accueillir votre assistant IA. Pas besoin de chercher un prestataire à part.",
- "s1.p2":"Un camping à Artigat, une table au Fossat, un atelier en vallée : chaque entreprise a son histoire. Je commence donc par une visite sur place, pour comprendre la vôtre. Ensuite seulement, je construis un site à votre image, pas un modèle générique.",
- "s1.l1":"Design sur mesure, rapide et lisible","s1.l2":"Pensé pour le référencement local","s1.l3":"L'assistant IA intégré dès la conception","s1.l4":"Un interlocuteur humain après — pas un ticket",
- "s1.pull":"Un site, c'est votre devanture ouverte 24 heures sur 24.",
- "s2.title":"Votre assistant","s2.kicker":"ASSISTANT IA 24H/24",
- "s2.p1":"Vous faites déjà connaître votre activité. Donnez aux visiteurs de votre site les réponses qui les aident à vous contacter. Quand vous êtes sur un chantier, en rendez-vous ou fermé, votre chatbot peut accueillir leur demande.",
- "s2.p2":"« Intervenez-vous dans ma commune ? », « Acceptez-vous les animaux ? », « Faites-vous des commandes pour un anniversaire ? » Une question peut bloquer une demande. Votre chatbot répond à partir de vos informations et aide à préparer la suite. S'il ne sait pas, il oriente vers vous. Vous gardez la main sur vos devis et vos réservations.",
- "s2.l1":"Accueillir les demandes même quand vous êtes occupé ou fermé","s2.l2":"Lever les hésitations avec des réponses sur vos prestations","s2.l3":"Préparer des demandes plus précises et limiter les questions répétitives",
- "s2.pull":"Vous développez vos ventes. Je ne prends aucun pourcentage dessus. Vous payez l'installation, puis l'abonnement mensuel pour la maintenance et le suivi de votre chatbot.",
- "s3.title":"Déjà un site ?","s3.kicker":"INSTALLATION SUR VOTRE SITE",
- "s3.p1":"Votre site existe déjà ? On le fait parler. Pas besoin de tout refaire : j'installe l'agent sur votre site actuel — WordPress, Wix, Shopify ou fait maison — sans toucher au reste, et sans réécrire vos contenus.",
- "s3.p2":"Vos visiteurs savent toujours qu'ils parlent à un assistant IA — jamais un trompe-l'œil, obligation légale respectée dès la conception. Les données sensibles tapées par erreur sont masquées avant d'être conservées, et la conformité RGPD est là dès la mise en service.",
- "s3.l1":"Compatible avec votre site tel qu'il est","s3.l2":"Installation sans toucher au reste du site","s3.l3":"Transparence : les visiteurs savent qu'ils parlent à une IA","s3.l4":"RGPD et sécurisation dès la mise en service",
- "s3.pull":"Pas d'usine à gaz : une installation propre, pensée pour votre métier.",
- "demo.kicker":"ESSAYEZ, ÇA RÉPOND","demo.title":"La démonstration",
- "demo.copy":"<strong>Voyez ce qu'un assistant peut apporter à votre activité.</strong> Posez vos questions dans la bulle. Chez vous, il sera adapté aux questions de vos propres clients.",
- "demo.cardMsg":"Quel est votre métier ? Je vais vous donner deux exemples adaptés, puis estimer avec vos chiffres ce que les demandes récupérées pourraient représenter.",
- "demo.open":"OUVRIR L'AGENT",
- "demo.n1":"Il adapte les exemples à votre métier et à vos demandes réelles.",
- "demo.n2":"Il utilise uniquement les chiffres que vous lui donnez.",
- "demo.n3":"Il affiche le chiffre d'affaires potentiel, par mois et par an.",
- "demo.side":"Les estimations utilisent uniquement vos chiffres. Elles ne garantissent pas une vente, et les charges de votre activité restent à déduire.",
- "chat.title":"MP·AGENT — DÉMONSTRATION","chat.status":"MP·AGENT — EN LIGNE",
- "chat.greet":"Bonjour — je suis l'agent IA de démonstration de MP Solutions IA. Quel est votre métier ?",
- "chat.ph":"Écrivez votre message…","chat.err":"Désolé, un problème est survenu. Réessayez dans un instant.",
- "chat.mic":"Dicter votre message","chat.send":"Envoyer",
- "chat.chips":[],
- "chat.you":"VOUS","chat.bot":"MP·AGENT",
- "met.kicker":"4 ÉTAPES","met.title":"Comment ça se passe",
- "met.copy":"Le prix dépend de votre activité : pas de tarif tout fait — <strong>nous en discutons autour d'un café</strong>, et je vous fais une proposition claire.",
- "met.m1t":"On échange","met.m1p":"Visite sur place si vous le voulez : votre activité, vos questions fréquentes, votre ton, vos clients.",
- "met.m2t":"Je construis","met.m2p":"L'agent est bâti à votre image — pas un modèle générique. Site neuf si besoin.",
- "met.m3t":"Mise en ligne","met.m3p":"Installation sur votre site, tests ensemble, transparence RGPD dès le premier jour.",
- "met.m4t":"Suivi mensuel","met.m4p":"Ajustements, mises à jour, évolutions. Un interlocuteur humain — pas un ticket.",
- "ct.kicker":"ON EN PARLE ?","ct.title":"Écrivez-moi","ct.copy":"COPIER L'ADRESSE","ct.devis":"DEMANDER UN DEVIS",
- "ct.hint":"MPSOLUTIONSIA — ARTIGAT (09130) · RÉPONSE RAPIDE, PAR UN HUMAIN",
- "col.tagline":"MP Solutions IA — Solutions d'intelligence artificielle conçues en Ariège","col.privacy":"Politique de confidentialité","col.legal":"Mentions légales",
- "col.status":"Micro-entreprise · TVA non applicable, article 293 B du Code général des impôts",
- "toast.copied":"Adresse copiée — à très vite !"
-},
-en:{
- "nav.chapters":"SERVICES","nav.demo":"DEMO","nav.method":"METHOD","nav.contact":"CONTACT",
- "nav.openDemo":"OPEN THE DEMO",
- "hero.edition":"AI ASSISTANTS FOR SMALL BUSINESSES IN THE ARIÈGE","hero.place":"ARTIGAT (09)",
- "hero.sub":"<strong>Your next customer has a question. Give them a reason to stay.</strong> Your chatbot answers when you are busy or closed and makes it easier to request a quote, a booking or an order. My goal: to help you grow your sales, with no commission on your revenue.",
- "hero.diag":"⚡ 60-SECOND DIAGNOSTIC","hero.write":"CONTACT ME",
- "s1.title":"No website yet?","s1.kicker":"WEBSITE DESIGN",
- "s1.p1":"I create your website, designed from the start to host your AI assistant. No need to find another provider.",
- "s1.p2":"A campsite in Artigat, a restaurant in Le Fossat, a workshop in the valley: every business has its own story. So I always start with an on-site visit to understand yours. Only then do I build a site in your image, not a generic template.",
- "s1.l1":"Custom design, fast and readable","s1.l2":"Built for local search","s1.l3":"The AI assistant built in from day one","s1.l4":"A human contact afterwards — not a ticket",
- "s1.pull":"A website is your shopfront, open 24 hours a day.",
- "s2.title":"Your assistant","s2.kicker":"24/7 AI ASSISTANT",
- "s2.p1":"You already work to make your business known. Give your website visitors the answers that help them contact you. While you are on a job, in an appointment or closed, your chatbot can welcome their enquiries.",
- "s2.p2":"“Do you cover my area?”, “Are pets welcome?”, “Do you take birthday orders?” A question can hold back an enquiry. Your chatbot answers using your business information and helps prepare the next step. If it does not know, it directs the visitor to you. You remain in control of quotes and bookings.",
- "s2.l1":"Welcome enquiries while you are busy or closed","s2.l2":"Address hesitation with answers about your services","s2.l3":"Prepare clearer enquiries and reduce repetitive questions",
- "s2.pull":"You grow your sales. I take no percentage of them. You pay the setup fee, then a monthly subscription for chatbot maintenance and support.",
- "s3.title":"Already have a site?","s3.kicker":"ADDED TO YOUR SITE",
- "s3.p1":"Your website already exists? Let's make it talk. No need to rebuild everything: I install the agent on your current site — WordPress, Wix, Shopify or hand-made — without touching the rest, and without rewriting your content.",
- "s3.p2":"Your visitors always know they are talking to an AI assistant — no disguise, a legal requirement respected from the design stage. Sensitive data typed by mistake is masked before being stored, and GDPR compliance is there from day one.",
- "s3.l1":"Works with your site as it is","s3.l2":"Installed without touching the rest of the site","s3.l3":"Transparency: visitors know they talk to an AI","s3.l4":"GDPR and security from the very start",
- "s3.pull":"No agency bloatware: a clean install, designed for your trade.",
- "demo.kicker":"TRY IT, IT ANSWERS","demo.title":"The demo",
- "demo.copy":"<strong>See what an assistant could do for your business.</strong> Ask your questions in the chat bubble. On your site, it will be tailored to your own customers' questions.",
- "demo.cardMsg":"What type of business do you run? I will give you two relevant examples, then estimate from your figures what recovered enquiries could represent.",
- "demo.open":"OPEN THE AGENT",
- "demo.n1":"It adapts its examples to your business and your real enquiries.",
- "demo.n2":"It uses only the figures you provide.",
- "demo.n3":"It shows your potential revenue, monthly and annual.",
- "demo.side":"Estimates use only your figures. They do not guarantee a sale, and your business expenses still need to be deducted.",
- "chat.title":"MP·AGENT — DEMO","chat.status":"MP·AGENT — ONLINE",
- "chat.greet":"Hi — I am the MP Solutions IA demonstration agent. What type of business do you run?",
- "chat.ph":"Write your message…","chat.err":"Sorry, something went wrong. Please try again in a moment.",
- "chat.mic":"Dictate your message","chat.send":"Send",
- "chat.chips":[],
- "chat.you":"YOU","chat.bot":"MP·AGENT",
- "met.kicker":"4 STEPS","met.title":"How it works",
- "met.copy":"The price depends on your business: no off-the-shelf price — <strong>we discuss it over a coffee</strong>, and I make you a clear proposal.",
- "met.m1t":"We talk","met.m1p":"On-site visit if you like: your business, your frequent questions, your tone, your customers.",
- "met.m2t":"I build","met.m2p":"The agent is built in your image — not a generic template. New website if needed.",
- "met.m3t":"Going live","met.m3p":"Installed on your site, tested together, GDPR transparency from day one.",
- "met.m4t":"Monthly care","met.m4p":"Adjustments, updates, evolutions. A human contact — not a ticket.",
- "ct.kicker":"SHALL WE TALK?","ct.title":"Write to me","ct.copy":"COPY THE ADDRESS","ct.devis":"REQUEST A QUOTE",
- "ct.hint":"MPSOLUTIONSIA — ARTIGAT (09130) · FAST ANSWERS, FROM A HUMAN",
- "col.tagline":"MP Solutions IA — Artificial intelligence solutions designed in the Ariège","col.privacy":"Privacy policy","col.legal":"Legal notice",
- "col.status":"Sole proprietorship · VAT not applicable, article 293 B of the French General Tax Code",
- "toast.copied":"Address copied — talk soon!"
-}};
-
+/* ---------- langues : le français est dans la page, l'anglais ici ---------- */
+var EN={
+ "motto":"Listen, understand, serve — with full transparency.",
+ "nav.try":"Try the assistant","nav.contact":"Contact me",
+ "hero.h1":"Your website answers your customers while you're busy.",
+ "hero.lead":"I install an assistant on the websites of craftspeople, shops and small businesses in the Ariège. It answers customers' questions using your information. If it doesn't know, it passes the request on to you.",
+ "hero.me":"My name is Marc-Paul Dassens. I work on my own, from Artigat, and I can come and see you if you like.",
+ "hero.diag":"Take the 1-minute diagnostic (in French)","hero.try":"Try the assistant",
+ "vois.h2":"What I see",
+ "vois.p1":"On a job site, in the kitchen or behind the counter, you can't always pick up the phone. Nor in the evening or on Sundays. Meanwhile, people visit your website with a simple question.",
+ "vois.p2":"With no answer, some call back. Others go elsewhere.",
+ "prop.h2":"What I offer",
+ "prop.p1":"An assistant installed on your website. It answers with your own information: your opening hours, your services, your area, your way of speaking.",
+ "scene.cap":"For example, at an electrician's, on a Tuesday at 9:40 pm:",
+ "scene.q":"Good evening, do you work in Saverdun? One of my sockets has stopped working.",
+ "scene.a":"Good evening! Yes, Saverdun is within the service area. Leave me your name and number: I'll pass on your request and you'll get a call back.",
+ "scene.after":"The next morning, the electrician finds the request in his inbox, with the name and number.",
+ "case.yes.h":"You already have a website","case.yes.p":"I add the assistant to it without touching the rest: WordPress, Wix, Shopify or a hand-made site.",
+ "case.no.h":"You don't have a website","case.no.p":"I build you a simple one, in your image, with the assistant included.",
+ "does.h":"What it does","does.1":"It answers the questions you get asked all the time.","does.2":"It notes the need, the name and the number.","does.3":"It sends you the request by email.",
+ "dont.h":"What it doesn't do","dont.1":"It never makes up prices or availability.","dont.2":"It doesn't confirm a quote or a booking for you.","dont.3":"It doesn't pretend to be human: your visitors know they're talking to an AI.",
+ "steps.h":"How it works",
+ "steps.1":"We meet at your place, if you like. You tell me about your trade and the questions people ask you.",
+ "steps.2":"I set up the assistant with your information.",
+ "steps.3":"We test it together, then I put it online.",
+ "steps.4":"After that, I look after it every month: adjustments, updates, new questions.",
+ "price.h":"The price",
+ "price.p":"It depends on your business. We talk it over a coffee and I make you a clear proposal: a setup fee, then a monthly subscription. I take no commission on your sales.",
+ "price.diag":"To get an idea, the <a href=\"/diagnostic.html\">diagnostic</a> (in French) estimates from your own figures what recovered enquiries could represent.",
+ "ct.h2":"Shall we talk?","ct.p":"Write to me. I read and answer every message myself.",
+ "ct.write":"Send an email","ct.copy":"Copy the address","ct.sign":"MP Solutions IA, Artigat (Ariège)",
+ "ft.legal":"Legal notice","ft.privacy":"Privacy policy",
+ "ft.id":"Marc-Paul Dassens EI, SIRET 108 354 739 00014. VAT not applicable, article 293 B of the French Tax Code.",
+ "chat.status":"Demo assistant"
+};
+/* textes utilisés seulement par le chat */
+var CHAT={
+ fr:{"chat.greet":"Bonjour, je suis l'assistant de démonstration de MP Solutions IA. Quel est votre métier ?",
+     "chat.ph":"Écrivez votre message…","chat.err":"Le message n'est pas parti. Réessayez dans un instant.",
+     "chat.mic":"Dicter votre message","chat.send":"Envoyer","chat.chips":[],"chat.bot":"Assistant",
+     "toast.copied":"Adresse copiée."},
+ en:{"chat.greet":"Hello, I'm the MP Solutions IA demo assistant. What type of business do you run?",
+     "chat.ph":"Write your message…","chat.err":"The message didn't go through. Please try again in a moment.",
+     "chat.mic":"Dictate your message","chat.send":"Send","chat.chips":[],"chat.bot":"Assistant",
+     "toast.copied":"Address copied."}
+};
 var lang='fr';
-function t(k){return (I18N[lang]&&I18N[lang][k])||I18N.fr[k]||k;}
+var FR={};
+document.querySelectorAll('[data-i18n]').forEach(function(el){FR[el.getAttribute('data-i18n')]=el.innerHTML;});
+function t(k){
+  if(CHAT[lang]&&k in CHAT[lang])return CHAT[lang][k];
+  if(lang==='en'&&k in EN)return EN[k];
+  return (k in FR)?FR[k]:k;
+}
 function applyLang(){
   document.documentElement.lang=lang;
-  document.querySelectorAll('[data-i18n]').forEach(function(el){el.textContent=t(el.getAttribute('data-i18n'));});
-  document.querySelectorAll('[data-i18n-html]').forEach(function(el){el.innerHTML=t(el.getAttribute('data-i18n-html'));});
+  document.querySelectorAll('[data-i18n]').forEach(function(el){el.innerHTML=t(el.getAttribute('data-i18n'));});
   var btn=document.getElementById('langBtn');
-  btn.textContent=(lang==='fr')?'🇬🇧':'🇫🇷';
-  btn.setAttribute('aria-label',lang==='fr'?'Switch to English':'Passer en français');
-  btn.title=lang==='fr'?'English':'Français';
+  btn.textContent=(lang==='fr')?'English':'Français';
+  btn.setAttribute('lang',lang==='fr'?'en':'fr');
   document.title=(lang==='fr')
-    ?"MPSOLUTIONSIA — Agents IA pour les TPE·PME d'Ariège"
-    :"MPSOLUTIONSIA — AI agents for small businesses in the Ariège";
+    ?"MP Solutions IA, assistants IA pour les artisans et petites entreprises d'Ariège"
+    :"MP Solutions IA, AI assistants for craftspeople and small businesses in the Ariège";
+  document.getElementById('fab').setAttribute('aria-label',lang==='fr'?"Ouvrir l'assistant":'Open the assistant');
+  document.getElementById('floatClose').setAttribute('aria-label',lang==='fr'?'Fermer':'Close');
   refreshChips();
 }
 document.getElementById('langBtn').addEventListener('click',function(){
@@ -757,53 +375,6 @@ document.getElementById('langBtn').addEventListener('click',function(){
   try{localStorage.setItem('mpia-lang',lang);}catch(e){}
   applyLang();
 });
-
-/* ---------- héro cinétique ---------- */
-(function(){
-  var lines=document.querySelectorAll('#heroTitle .line');
-  lines.forEach(function(line,li){
-    var txt=line.getAttribute('data-line');
-    line.textContent='';
-    Array.prototype.forEach.call(txt,function(c,i){
-      var s=document.createElement('span');
-      s.className='ch';
-      s.style.transitionDelay=(li*180+i*45)+'ms';
-      s.textContent=(c===' ')?'\u00A0':c;
-      if(c==='—'||c==='.'){s.style.color='var(--accent)';s.style.webkitTextStroke='0';}
-      line.appendChild(s);
-    });
-  });
-  requestAnimationFrame(function(){
-    setTimeout(function(){document.body.classList.add('loaded');},120);
-  });
-})();
-
-/* ---------- chapitres en défilement naturel (les uns derrière les autres) ---------- */
-(function(){
-  var container=document.getElementById('chapitres');
-  if(!container)return;
-  container.style.height='auto';
-  var spreads=Array.prototype.slice.call(container.querySelectorAll('.spread'));
-  spreads.forEach(function(sp){
-    sp.style.position='relative';
-    sp.style.top='auto';
-    sp.style.height='auto';
-    sp.style.opacity='1';
-    sp.style.visibility='visible';
-    sp.style.transform='none';
-    sp.style.zIndex='auto';
-  });
-  if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(entries){
-      entries.forEach(function(en){
-        if(en.isIntersecting){en.target.classList.add('live');}
-      });
-    },{threshold:.2});
-    spreads.forEach(function(s){io.observe(s);});
-  }else{
-    spreads.forEach(function(s){s.classList.add('live');});
-  }
-})();
 
 /* ---------- toasts ---------- */
 function toast(msg){
@@ -879,7 +450,7 @@ MpChat.prototype.initMic=function(){
       ?(lang==='en'?'Recording — click STOP to send.':'Enregistrement en cours — cliquez sur STOP pour envoyer.')
       :state==='opening'?(lang==='en'?'Opening microphone…':'Ouverture du micro…')
       :busy?(lang==='en'?'Transcribing…':'Transcription en cours…')
-      :(lang==='en'?'Microphone: audio sent to OpenAI for transcription.':'Micro : audio transmis à OpenAI pour transcription.');
+      :(lang==='en'?'Microphone: audio sent to OpenAI for transcription.':'Micro : audio transmis à OpenAI pour transcription.');
     self.micBtn.classList.toggle('active',recording);
     self.micBtn.disabled=busy;
     var label=recording
@@ -1066,58 +637,10 @@ function closeFloat(){
 fab.addEventListener('click',function(){floatOpen?closeFloat():openFloat();});
 document.getElementById('floatClose').addEventListener('click',closeFloat);
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeFloat();});
-document.getElementById('navDemo').addEventListener('click',openFloat);
-document.getElementById('demoOpen').addEventListener('click',openFloat);
+document.querySelectorAll('.open-chat').forEach(function(b){b.addEventListener('click',openFloat);});
 /* lien ?chat=... (QR code de la carte de visite) : le chat s'ouvre tout seul */
 try{if(new URLSearchParams(location.search).has('chat'))setTimeout(openFloat,600);}catch(e){}
 
-/* ---------- clics sur les boutons des vitrines démos ---------- */
-document.addEventListener('click', function(e){
-  var btn = e.target.closest('.btn-vitrine');
-  if(btn){
-    var promptText = btn.getAttribute('data-prompt');
-    openFloat();
-    if(promptText && floatChat){
-      setTimeout(function(){ floatChat.send(promptText); }, 700);
-    }
-  }
-});
-
-/* ---------- trail riso ---------- */
-(function(){
-  var cv=document.getElementById('riso');
-  var ctx=cv.getContext('2d');
-  var parts=[],running=false;
-  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
-  function resize(){cv.width=innerWidth;cv.height=innerHeight;}
-  resize();window.addEventListener('resize',resize);
-  function tick(){
-    ctx.clearRect(0,0,cv.width,cv.height);
-    for(var i=parts.length-1;i>=0;i--){
-      var p=parts[i];
-      p.life-=1/36;
-      if(p.life<=0){parts.splice(i,1);continue;}
-      ctx.globalAlpha=p.life*.5;
-      ctx.fillStyle=p.c;
-      ctx.beginPath();
-      ctx.arc(p.x+p.dx,p.y+p.dy,p.r,0,7);
-      ctx.fill();
-    }
-    ctx.globalAlpha=1;
-    if(parts.length){requestAnimationFrame(tick);}else{running=false;}
-  }
-  var last=0;
-  window.addEventListener('pointermove',function(e){
-    if(e.pointerType!=='mouse'||reduced.matches)return;
-    var now=Date.now();
-    if(now-last<28)return;
-    last=now;
-    parts.push({x:e.clientX,y:e.clientY,dx:(Math.random()-.5)*7,dy:(Math.random()-.5)*7,
-      r:1.2+Math.random()*2.6,life:1,c:trailColor});
-    if(parts.length>90)parts.shift();
-    if(!running){running=true;requestAnimationFrame(tick);}
-  },{passive:true});
-})();
 
 /* ---------- copier l'adresse ---------- */
 document.getElementById('copyMail').addEventListener('click',function(){
@@ -1134,12 +657,8 @@ document.getElementById('copyMail').addEventListener('click',function(){
 });
 
 /* ---------- langue sauvegardée ---------- */
-try{
-  var saved=localStorage.getItem('mpia-lang');
-  if(saved==='en'){lang='en';}
-}catch(e){}
+try{if(localStorage.getItem('mpia-lang')==='en'){lang='en';}}catch(e){}
 applyLang();
-document.body.classList.add('loaded');
 })();
 </script>
 </body>
