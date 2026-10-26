@@ -378,6 +378,10 @@
     .presentation-choice{padding:16px 12px}
   }
   @media(prefers-reduced-motion:reduce){body.presentation-motion *,body[data-presentation] .btn,.presentation-choice{animation:none!important;transition:none!important}}
+.demo-situation{margin-bottom:28px;padding:22px;border:1.5px solid currentColor;border-radius:0}
+.demo-situation .kicker{margin-bottom:8px}
+.demo-situation .btn{margin-top:14px;display:inline-block}
+.demo-sit-note{font-size:.85em;opacity:.75;margin-top:10px}
 </style>
   <script data-goatcounter="https://mpsolutionsia.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
@@ -610,6 +614,12 @@
       </ul>
     </div>
     <div class="band-copy" style="align-self:end" >
+      <div class="demo-situation">
+        <div class="kicker" data-i18n="demo.sitKicker">EN SITUATION</div>
+        <p data-i18n-html="demo.sitCopy"><strong>Jouez le client d'un artisan.</strong> Plombier, boulangerie, restaurant, garage… Posez vos questions comme un vrai client et voyez la fiche de demande que l'artisan reçoit. Les entreprises sont fictives.</p>
+        <a class="btn btn-ink" href="https://demo-chatbot-ia.onrender.com/demo" target="_blank" rel="noopener"><span data-i18n="demo.sitBtn">ESSAYER EN SITUATION</span> →</a>
+        <p class="demo-sit-note" data-i18n="demo.sitNote">La page peut mettre jusqu'à une minute à s'ouvrir la première fois.</p>
+      </div>
       <p data-i18n="demo.side">Les estimations utilisent uniquement vos chiffres. Elles ne garantissent pas une vente, et les charges de votre activité restent à déduire.</p>
     </div>
   </div>
@@ -714,6 +724,10 @@ fr:{
  "demo.n1":"Il adapte les exemples à votre métier et à vos demandes réelles.",
  "demo.n2":"Il utilise uniquement les chiffres que vous lui donnez.",
  "demo.n3":"Il affiche le chiffre d'affaires potentiel, par mois et par an.",
+ "demo.sitKicker":"EN SITUATION",
+ "demo.sitCopy":"<strong>Jouez le client d'un artisan.</strong> Plombier, boulangerie, restaurant, garage… Posez vos questions comme un vrai client et voyez la fiche de demande que l'artisan reçoit. Les entreprises sont fictives.",
+ "demo.sitBtn":"ESSAYER EN SITUATION",
+ "demo.sitNote":"La page peut mettre jusqu'à une minute à s'ouvrir la première fois.",
  "demo.side":"Les estimations utilisent uniquement vos chiffres. Elles ne garantissent pas une vente, et les charges de votre activité restent à déduire.",
  "chat.title":"MP·ASSISTANT — DÉMONSTRATION","chat.status":"MP·ASSISTANT — EN LIGNE",
  "chat.greet":"Bonjour — je suis l'assistant IA de démonstration de MP Solutions IA. Quel est votre métier ?",
@@ -766,6 +780,10 @@ en:{
  "demo.n1":"It adapts its examples to your business and your real enquiries.",
  "demo.n2":"It uses only the figures you provide.",
  "demo.n3":"It shows your potential revenue, monthly and annual.",
+ "demo.sitKicker":"IN A REAL SITUATION",
+ "demo.sitCopy":"<strong>Play a tradesman's customer.</strong> Plumber, bakery, restaurant, garage… Ask questions like a real customer and see the request sheet the business owner receives. The businesses are fictional.",
+ "demo.sitBtn":"TRY IT IN A REAL SITUATION",
+ "demo.sitNote":"The page may take up to a minute to open the first time.",
  "demo.side":"Estimates use only your figures. They do not guarantee a sale, and your business expenses still need to be deducted.",
  "chat.title":"MP·ASSISTANT — DEMO","chat.status":"MP·ASSISTANT — ONLINE",
  "chat.greet":"Hi — I am the MP Solutions IA demonstration assistant. What type of business do you run?",
